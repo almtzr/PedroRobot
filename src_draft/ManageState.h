@@ -32,7 +32,7 @@ class ManageState {
     void screenIntro(ManageDisplay* display);
     void screenControl(Button button, ManageDisplay* display);
     void screenSelectMode(Button button, ManageDisplay* display);
-    void screenRadio();
+    void screenRadio(Button button, ManageDisplay* display);
     bool allButtonsReleased(ManageButton* btn);
     void screenTransition(ScreenType screenType, ManageDisplay* display);
     void modeNormal(Button button);
@@ -51,7 +51,7 @@ class ManageState {
 
     uint8_t m_selectMode;
     uint8_t m_selectRadio;
-    uint8_t m_radioKey;
+    uint8_t m_radioKey, m_radioType;
     bool m_btnCenterLongPress, m_btnLeft, m_btnRight, m_ignoreButtons;
 
 };

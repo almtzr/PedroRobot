@@ -11,6 +11,7 @@ ManageState::ManageState() {
     m_selectMode = 1;
     m_selectRadio = 1;
     m_radioKey = 1;
+    m_radioType = 1;
     m_btnCenterLongPress = false;
     m_ignoreButtons = false;
 }
@@ -30,10 +31,9 @@ void ManageState::updateState(ManageButton* btn, ManageDisplay* display) {
 
     if (m_ignoreButtons) {
         if (allButtonsReleased(btn)) {
-            m_ignoreButtons = false; // Dès que tous relâchés → on réactive la lecture
-        } else {
-            m_button = {}; // reset à false
+            m_ignoreButtons = false; 
         }
+        m_button = {};
     } else {
         // Lecture normale
         m_button.btnCenterClick = btn->getBtnCenterClick();
@@ -47,17 +47,19 @@ void ManageState::updateState(ManageButton* btn, ManageDisplay* display) {
     }
 
     switch (m_currentScreen) {
-        case ScreenType::INTRO:       screenIntro(display); break;
-        case ScreenType::CONTROL:     screenControl(m_button, display); break;
-        case ScreenType::SELECT_MODE: screenSelectMode(m_button, display); break;
-        case ScreenType::RADIO_SETTINGS:       screenRadio(); break;
+        case ScreenType::INTRO:          screenIntro(display); break;
+        case ScreenType::CONTROL:        screenControl(m_button, display); break;
+        case ScreenType::SELECT_MODE:    screenSelectMode(m_button, display); break;
+        case ScreenType::RADIO_SETTINGS: screenRadio(m_button, display); break;
     }
 }
 
 void ManageState::screenTransition(ScreenType screenType, ManageDisplay* display) {
-    m_currentScreen = screenType;
-    display->setDisplayScreen(m_currentScreen);
     m_ignoreButtons = true;
+    m_currentScreen = screenType;
+    m_selectRadio = 1;
+    display->setRadioSelected (m_selectRadio);
+    display->setDisplayScreen(m_currentScreen);
 }
 
 void ManageState::screenIntro(ManageDisplay* display) {
@@ -105,7 +107,45 @@ void ManageState::screenSelectMode(Button button, ManageDisplay* display) {
 }
 
 
-void ManageState::screenRadio() {}
+void ManageState::screenRadio(Button button, ManageDisplay* display) {
+
+    if (m_selectRadio == 1) {
+        if (button.btnRightClick) {
+            if (m_radioType == 1){
+                m_radioType++;
+                display->setRadioType(2);
+            } else if (m_radioType == 2) {
+                m_radioType--;
+                display->setRadioType(1);
+            }
+        }
+        if (button.btnCenterClick) {
+            Serial.println("CENTER ON");
+            m_selectRadio++;
+            display->setRadioSelected (m_selectRadio);
+        }
+    } else if (m_selectRadio == 2) {
+        if (button.btnRightPress) {
+            if (m_radioKey < 100) {
+                m_radioKey++;
+            }
+        } else if (button.btnLeftPress) {
+            if (m_radioKey > 1) {
+                m_radioKey--;
+            }
+        }
+        display->setRadioKey (m_radioKey);      
+        if (button.btnCenterClick) {
+            m_selectRadio++;
+            display->setRadioSelected (m_selectRadio);  
+        }
+    } else if (m_selectRadio == 3) {
+        if (button.btnCenterClick) {
+            display->setModeSelected(m_currentMode);
+            screenTransition(ScreenType::CONTROL, display);
+        }
+    }
+}
 
 void ManageState::modeNormal(Button button) {  
     if (button.btnLeftPress) {

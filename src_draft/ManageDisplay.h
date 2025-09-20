@@ -29,12 +29,14 @@ class ManageDisplay {
     void setModeSelected(ModeType mode);
     void setRadioType(uint8_t type);
     void setRadioKey(uint8_t key);
+    char* modeToString(ModeType mode);
+
 
   private:
     ScreenType m_currentScreen;
     ModeType m_selectedMode;
     uint8_t m_radioType;
-    uint8_t m_radioSelect,  m_selectRadio, m_radioKey;; 
+    uint8_t m_radioSelect,  m_selectRadio, m_radioKey;
 };
 
 #endif

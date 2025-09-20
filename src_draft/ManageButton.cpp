@@ -19,14 +19,12 @@ void ManageButton::update() {
     unsigned long now = millis();
 
     if (centerState) {
-        Serial.println("Center: ");
         if (!m_btnCenterON) {
             m_btnCenterON = true;
             m_lastCenterPressTime = now;
         }
         if (!m_btnCenterPress) {
             if ((now - m_lastCenterPressTime) > 3000) {
-                Serial.println("Button Long: ");
                 m_btnCenterPress = true;
             }
         }
@@ -41,9 +39,11 @@ void ManageButton::update() {
     }
 
     if (rightState) {
-        Serial.println("Right: ");
         if (!m_btnRightON) {
             m_btnRightON = true;
+        }
+        if (!m_btnRightPress) {
+            m_btnRightPress = true;
         }
     } else {
         if (m_btnRightON) {
@@ -56,9 +56,11 @@ void ManageButton::update() {
     }
 
     if (leftState) {
-        Serial.println("Left: ");
         if (!m_btnLeftON) {
             m_btnLeftON = true;
+        }
+        if (!m_btnLeftPress) {
+            m_btnLeftPress = true;
         }
     } else {
         if (m_btnLeftON) {
