@@ -9,22 +9,33 @@ class ManageButton {
     void Init();
     void update();
 
-    bool getBtnLeftState() const;
-    bool getBtnRightState() const;
-    bool getBtnCenterPressed() const;
-    bool getBtnCenterReleased() const;
-    bool getBtnCenterLongPress() const;
 
-    void setBtnCenterPressed(bool state);
-    void setBtnCenterReleased(bool state);
-    void setBtnCenterLongPress(bool state);
+    bool getBtnCenterON() const;
+    bool getBtnCenterClick() const;
+    bool getBtnCenterPress() const;
+
+    bool getBtnRightON() const;
+    bool getBtnRightClick() const;
+    bool getBtnRightPress() const;
+
+    bool getBtnLeftON() const;
+    bool getBtnLeftClick() const;
+    bool getBtnLeftPress() const;
+
+    void setBtnCenterON(bool state);
+    void setBtnCenterClick(bool state);
+    void setBtnCenterPress(bool state);
 
   private:
-    bool m_btnLeft;
-    bool m_btnRight;
-    bool m_btnCenterPressed;
-    bool m_btnCenterReleased;
-    bool m_btnCenterLongPress;
+    bool m_btnRightON;
+    bool m_btnRightClick;
+    bool m_btnRightPress;
+    bool m_btnLeftON;
+    bool m_btnLeftClick;
+    bool m_btnLeftPress;
+    bool m_btnCenterON;
+    bool m_btnCenterClick;
+    bool m_btnCenterPress;
 
     unsigned long m_lastCenterPressTime;
 };

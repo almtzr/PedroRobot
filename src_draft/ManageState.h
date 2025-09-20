@@ -3,16 +3,22 @@
 
 #include <Arduino.h>
 #include "Command.h"
+#include "config/Config.h"
+
+struct Button {
+  bool btnRightClick;
+  bool btnLeftClick;
+  bool btnCenterClick;
+  bool btnRightPress;
+  bool btnLeftPress;
+  bool btnCenterPress;
+};
+
 
 class ManageButton;
 class ManageDisplay;
 
-enum class Screen : uint8_t {
-    INTRO,
-    CONTROL,
-    SELECT_MODE,
-    RADIO
-};
+
 
 class ManageState {
   public:
@@ -20,17 +26,25 @@ class ManageState {
 
     void Init();
     void updateState(ManageButton* btn, ManageDisplay* display);
-
-    Screen getCurrentScreen() const { return m_currentScreen; }
     Command getCommand() const { return m_cmd; }
 
   private:
-    void screenIntro();
-    void screenControl(ManageButton* btn, ManageDisplay* display);
-    void screenSelectMode(ManageButton* btn, ManageDisplay* display);
+    void screenIntro(ManageDisplay* display);
+    void screenControl(Button button, ManageDisplay* display);
+    void screenSelectMode(Button button, ManageDisplay* display);
     void screenRadio();
+    bool allButtonsReleased(ManageButton* btn);
+    void screenTransition(ScreenType screenType, ManageDisplay* display);
+    void modeNormal(Button button);
+    void modeRecord(Button button);
+    void modeReplay(Button button);
+    void modeRadio(Button button);
+    void modeWebctrl(Button button);
+    void modeBluetooth(Button button);
 
-    Screen m_currentScreen;
+    Button m_button;
+    ScreenType m_currentScreen;
+    ModeType m_currentMode;
     Command m_cmd;
     unsigned long m_previousMillis;
     unsigned long m_intervalIntro;
@@ -38,7 +52,7 @@ class ManageState {
     uint8_t m_selectMode;
     uint8_t m_selectRadio;
     uint8_t m_radioKey;
-    bool m_btnCenterLongPress, m_btnLeft, m_btnRight;
+    bool m_btnCenterLongPress, m_btnLeft, m_btnRight, m_ignoreButtons;
 
 };
 
