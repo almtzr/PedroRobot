@@ -21,6 +21,9 @@ ManageState::ManageState() {
     m_radioEncode.rotation = 0;
     m_radioDecode.currentLed = -1;
     m_radioDecode.rotation = 0;
+
+    m_servoSet.pulse = 0;
+    m_servoSet.servoId = 0;
 }
 
 bool ManageState::allButtonsReleased(ManageButton* btn) {
@@ -161,15 +164,25 @@ void ManageState::modeNormal(Button button, ManageMove* move) {
             m_servoId = 0;
         }
         move->setCurrentLED(m_servoId);
-    } else if (button.btnLeftPress) {
-        move->rotationLeft(m_servoId);
+    } 
+
+
+    m_servoSet.pulse = 0;
+    m_servoSet.servoId = m_servoId;
+    
+    if (button.btnLeftPress) {
+        Serial.println("LEFT...");
+        m_servoSet.pulse = 4;
+        m_servoSet.servoId = m_servoId;
         m_radioEncode.rotation = 20;
     } else if (button.btnRightPress) {
-        move->rotationRight(m_servoId);
+        Serial.println("RIGHT...");
+        m_servoSet.pulse = 8;
+        m_servoSet.servoId = m_servoId;
         m_radioEncode.rotation = 10;
-    } else {
-        move->servoIDLE(m_servoId);
-    }
+    } 
+
+    move->setServoSettings(m_servoSet);
 }
 
 void ManageState::modeRecord(Button button, ManageMove* move) {  
@@ -189,17 +202,23 @@ void ManageState::modeRadio(Button button, ManageMove* move, ModeRadio* radio) {
     } else if (m_radioSet.radioType == RX) {
         m_radioDecode = radio->getRadioDecode();
         move->setCurrentLED(m_radioDecode.currentLed);
+        m_servoSet.pulse = 0;
+        m_servoSet.servoId = m_radioDecode.currentLed; 
         if (m_radioDecode.rotation == 20) {
-            move->rotationLeft(m_radioDecode.currentLed);
+            m_servoSet.pulse = 4;
+            m_servoSet.servoId = m_radioDecode.currentLed;
+          //  move->rotationLeft(m_radioDecode.currentLed);
         } else if (m_radioDecode.rotation == 10) {
-            move->rotationRight(m_radioDecode.currentLed);
-        } else {
-            move->servoIDLE(m_radioDecode.currentLed);
-        }
+            m_servoSet.pulse = 8;
+            m_servoSet.servoId = m_radioDecode.currentLed;
+           // move->rotationRight(m_radioDecode.currentLed);
+        } 
+        move->setServoSettings(m_servoSet);
     }
 }
 
 void ManageState::modeWebctrl(Button button, ManageMove* move) {  
+    
 }
 
 void ManageState::modeBluetooth(Button button, ManageMove* move) {  

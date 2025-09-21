@@ -17,14 +17,15 @@ class ManageMove {
     void LEDOFF();
     void servoIDLE(uint8_t servoId);
     void setCurrentLED(uint8_t LEDId);
-    void rotationRight(uint8_t servoId);
-    void rotationLeft(uint8_t servoId);
     void AddMovement(int pulse, unsigned long duration, uint8_t servo);
     void Replay();
+    void setServoSettings(ServoSettings servoSet);
+    void updateServo();
 
   private:
-    static const uint8_t MAX_MOVEMENTS = 100;
+    static const uint8_t MAX_MOVEMENTS = 40;
     Movement m_movements[MAX_MOVEMENTS];
+    ServoSettings m_servoSet;
     uint8_t m_index;
     uint8_t m_currentLED;
 };

@@ -78,10 +78,6 @@ void ModeRadio::radioRXTX() {
     } else if (m_radioSet.radioType == RX) {
         if (radio.available()) {
             radio.read(&m_radioDecode, sizeof(m_radioDecode));
-            Serial.print("Radio RX LED: ");
-            Serial.print(m_radioDecode.currentLed);
-            Serial.print(" ROT: ");
-            Serial.println(m_radioDecode.rotation);
         }
     }
 }

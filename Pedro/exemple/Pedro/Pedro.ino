@@ -19,4 +19,5 @@ void loop() {
     manageDisplay.updateDisplay();
     manageState.updateState(&manageButton, &manageDisplay, &manageMove, &modeRadio);
     modeRadio.radioRXTX();
+    manageMove.updateServo();
 }

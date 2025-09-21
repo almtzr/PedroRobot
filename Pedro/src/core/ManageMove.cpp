@@ -12,6 +12,8 @@ const int servoSpeed[4] = {-200, -220, 200, 150};
 
 ManageMove::ManageMove() {
     m_currentLED = 0;
+    m_servoSet.pulse = 0;
+    m_servoSet.servoId = 0;
 }
 
 void ManageMove::Init() {
@@ -33,11 +35,6 @@ void ManageMove::LEDOFF() {
 }
 
 void ManageMove::setCurrentLED(uint8_t LEDId) {
-    
-   /* Serial.print("LEDId ");
-    Serial.print(LEDId);
-    Serial.print(" m_currentLED ");
-    Serial.println(m_currentLED);*/
     digitalWrite(ledPins[m_currentLED], LOW);
     digitalWrite(ledPins[LEDId], HIGH);
     m_currentLED = LEDId;
@@ -47,14 +44,18 @@ void ManageMove::servoIDLE(uint8_t servoId) {
     servoList[servoId].writeMicroseconds(1500);
 }
 
-void ManageMove::rotationLeft(uint8_t servoId) {
-    pulse = 1500 - servoSpeed[servoId];
-    servoList[servoId].writeMicroseconds(pulse);
+void ManageMove::setServoSettings(ServoSettings servoSet) {
+    m_servoSet = servoSet;
 }
 
-void ManageMove::rotationRight(uint8_t servoId) {
-    pulse = 1500 + servoSpeed[servoId];
-    servoList[servoId].writeMicroseconds(pulse);
+void ManageMove::updateServo() {
+    pulse = 1500;
+    if (m_servoSet.pulse == 4){
+        pulse = 1500 - servoSpeed[m_servoSet.servoId];  
+    } else if (m_servoSet.pulse == 8){
+        pulse = 1500 + servoSpeed[m_servoSet.servoId];  
+    }
+    servoList[m_servoSet.servoId].writeMicroseconds(pulse);
 }
 
 void ManageMove::AddMovement(int pulse, unsigned long duration, uint8_t servo) {

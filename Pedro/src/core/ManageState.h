@@ -51,6 +51,8 @@ class ManageState {
     RadioSettings m_radioSet;
     RadioMessage m_radioEncode;
     RadioMessage m_radioDecode;
+    ServoSettings m_servoSet;
+
 };
 
 #endif

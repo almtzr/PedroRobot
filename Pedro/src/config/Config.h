@@ -31,6 +31,13 @@ struct RadioMessage {
     byte rotation;
 };
 
+
+struct ServoSettings {
+    uint8_t servoId;
+    uint8_t pulse;
+};
+
+
 struct RadioSettings {
     RadioType radioType;
     uint8_t radioCode;
