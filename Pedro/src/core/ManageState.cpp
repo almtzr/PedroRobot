@@ -10,10 +10,7 @@ ManageState::ManageState() {
     m_currentMode = ModeType::NORMAL;
     m_previousMillis = 0;
     m_intervalIntro = 3000; // 3s intro
-    m_selectMode = 1;
     m_selectRadio = 1;
-    m_servoId = 0;
-    m_btnCenterLongPress = false;
     m_ignoreButtons = false;
     m_radioSet.radioCode = 1;
     m_radioSet.radioType = RadioType::TX;
@@ -21,9 +18,9 @@ ManageState::ManageState() {
     m_radioEncode.rotation = 0;
     m_radioDecode.currentLed = -1;
     m_radioDecode.rotation = 0;
-
     m_servoSet.pulse = 0;
     m_servoSet.servoId = 0;
+    m_button = {false,false,false,false,false,false};
 }
 
 bool ManageState::allButtonsReleased(ManageButton* btn) {
@@ -56,9 +53,9 @@ void ManageState::updateState(ManageButton* btn, ManageDisplay* display, ManageM
 
     switch (m_currentScreen) {
         case ScreenType::INTRO:          screenIntro(display); break;
-        case ScreenType::CONTROL:        screenControl(m_button, display, move, radio); break;
-        case ScreenType::SELECT_MODE:    screenSelectMode(m_button, display); break;
-        case ScreenType::RADIO_SETTINGS: screenRadio(m_button, display, radio); break;
+        case ScreenType::CONTROL:        screenControl(display, move, radio); break;
+        case ScreenType::SELECT_MODE:    screenSelectMode(display, move); break;
+        case ScreenType::RADIO_SETTINGS: screenRadio(display, radio); break;
     }
 }
 
@@ -77,35 +74,38 @@ void ManageState::screenIntro(ManageDisplay* display) {
     }
 }
 
-void ManageState::screenControl(Button button, ManageDisplay* display, ManageMove* move, ModeRadio* radio) {
+void ManageState::screenControl(ManageDisplay* display, ManageMove* move, ModeRadio* radio) {
 
-    if (button.btnCenterPress) {
+    if (m_button.btnCenterPress) {
         screenTransition(ScreenType::SELECT_MODE, display);
         radio->stopRadio();
     }
 
     switch (m_currentMode) {
-        case ModeType::NORMAL:    modeNormal(button, move); break;
-        case ModeType::RECORD:    modeRecord(button, move); break;
-        case ModeType::REPLAY:    modeReplay(button, move); break;
-        case ModeType::WEBCTRL:   modeWebctrl(button, move); break;
-        case ModeType::BLUETOOTH: modeBluetooth(button, move); break;
-        case ModeType::RADIO:     modeRadio(button, move, radio); break;
+        case ModeType::NORMAL:    modeNormal(move); break;
+        case ModeType::RECORD:    modeRecord(move); break;
+        case ModeType::REPLAY:    modeReplay(move); break;
+        case ModeType::WEBCTRL:   modeWebctrl(move); break;
+        case ModeType::BLUETOOTH: modeBluetooth(move); break;
+        case ModeType::RADIO:     modeRadio(move, radio); break;
     }
 }
 
-void ManageState::screenSelectMode(Button button, ManageDisplay* display) {
-    if (button.btnRightClick) {
+void ManageState::screenSelectMode(ManageDisplay* display, ManageMove* move) {
+    if (m_button.btnRightClick) {
         m_currentMode = static_cast<ModeType>(
             (static_cast<uint8_t>(m_currentMode) + 1) % static_cast<uint8_t>(ModeType::COUNT)
         );
-    } else if (button.btnLeftClick) {
+    } else if (m_button.btnLeftClick) {
         m_currentMode = static_cast<ModeType>(
             (static_cast<uint8_t>(m_currentMode) + static_cast<uint8_t>(ModeType::COUNT) - 1) % static_cast<uint8_t>(ModeType::COUNT)
         );
     }
 
-    if (button.btnCenterClick) {
+    if (m_button.btnCenterClick) {
+        if (m_currentMode == RECORD) {
+             move->initRecord();
+        }
         if (m_currentMode == RADIO) {
             screenTransition(ScreenType::RADIO_SETTINGS, display);
         } else {
@@ -116,10 +116,10 @@ void ManageState::screenSelectMode(Button button, ManageDisplay* display) {
 }
 
 
-void ManageState::screenRadio(Button button, ManageDisplay* display, ModeRadio* radio) {
+void ManageState::screenRadio(ManageDisplay* display, ModeRadio* radio) {
 
     if (m_selectRadio == 1) {
-        if (button.btnRightClick) {
+        if (m_button.btnRightClick) {
             if (m_radioSet.radioType == TX){
                 m_radioSet.radioType = RX;
             } else if (m_radioSet.radioType == RX) {
@@ -127,28 +127,28 @@ void ManageState::screenRadio(Button button, ManageDisplay* display, ModeRadio* 
             }
             display->setRadioType(m_radioSet.radioType);
         }
-        if (button.btnCenterClick) {
+        if (m_button.btnCenterClick) {
             Serial.println("CENTER ON");
             m_selectRadio++;
             display->setRadioSelected (m_selectRadio);
         }
     } else if (m_selectRadio == 2) {
-        if (button.btnRightPress) {
+        if (m_button.btnRightPress) {
             if (m_radioSet.radioCode < 100) {
                 m_radioSet.radioCode++;
             }
-        } else if (button.btnLeftPress) {
+        } else if (m_button.btnLeftPress) {
             if (m_radioSet.radioCode > 1) {
                 m_radioSet.radioCode--;
             }
         }
         display->setRadioKey (m_radioSet.radioCode);      
-        if (button.btnCenterClick) {
+        if (m_button.btnCenterClick) {
             m_selectRadio++;
             display->setRadioSelected (m_selectRadio);  
         }
     } else if (m_selectRadio == 3) {
-        if (button.btnCenterClick) {
+        if (m_button.btnCenterClick) {
             display->setModeSelected(m_currentMode);
             screenTransition(ScreenType::CONTROL, display);
             radio->setRadioSettings(m_radioSet);
@@ -156,48 +156,47 @@ void ManageState::screenRadio(Button button, ManageDisplay* display, ModeRadio* 
     }
 }
 
-void ManageState::modeNormal(Button button, ManageMove* move) {  
-    if (button.btnCenterClick) {
-        if (m_servoId < 3) {
-            m_servoId++;
-        } else if (m_servoId == 3) {
-            m_servoId = 0;
+void ManageState::modeNormal(ManageMove* move) {  
+    if (m_button.btnCenterClick) {
+        if (m_servoSet.servoId < 3) {
+            m_servoSet.servoId++;
+        } else if (m_servoSet.servoId == 3) {
+            m_servoSet.servoId = 0;
         }
-        move->setCurrentLED(m_servoId);
+        move->setCurrentLED(m_servoSet.servoId);
     } 
 
-
     m_servoSet.pulse = 0;
-    m_servoSet.servoId = m_servoId;
     
-    if (button.btnLeftPress) {
+    if (m_button.btnLeftPress) {
         Serial.println("LEFT...");
         m_servoSet.pulse = 4;
-        m_servoSet.servoId = m_servoId;
         m_radioEncode.rotation = 20;
-    } else if (button.btnRightPress) {
+    } else if (m_button.btnRightPress) {
         Serial.println("RIGHT...");
         m_servoSet.pulse = 8;
-        m_servoSet.servoId = m_servoId;
         m_radioEncode.rotation = 10;
     } 
 
     move->setServoSettings(m_servoSet);
 }
 
-void ManageState::modeRecord(Button button, ManageMove* move) {  
-    modeNormal(button, move);
+void ManageState::modeRecord(ManageMove* move) {  
+    modeNormal(move);
 }
 
-void ManageState::modeReplay(Button button, ManageMove* move) {  
+void ManageState::modeReplay(ManageMove* move) {  
+   // do {
+        move->startReplay();
+   // } while (not m_button.btnCenterPress);
 }
 
-void ManageState::modeRadio(Button button, ManageMove* move, ModeRadio* radio) {  
+void ManageState::modeRadio(ManageMove* move, ModeRadio* radio) {  
     if (m_radioSet.radioType == TX){  
         Serial.println("Radio TX");
         m_radioEncode.rotation = 30;
-        modeNormal(button, move);        
-        m_radioEncode.currentLed = m_servoId;
+        modeNormal(move);        
+        m_radioEncode.currentLed = m_servoSet.servoId;
         radio->setRadioEncode(m_radioEncode);
     } else if (m_radioSet.radioType == RX) {
         m_radioDecode = radio->getRadioDecode();
@@ -217,10 +216,46 @@ void ManageState::modeRadio(Button button, ManageMove* move, ModeRadio* radio) {
     }
 }
 
-void ManageState::modeWebctrl(Button button, ManageMove* move) {  
+void ManageState::modeWebctrl(ManageMove* move) {
+    static char command[4];   // 2 chars + '\n' + '\0'
+    static uint8_t index = 0;
+
+    while (Serial.available()) {
+        char c = Serial.read();
+
+        if (c == '\n') {
+            command[index] = '\0';  // terminer la chaîne
+
+            if (index >= 2) {       // au moins 2 caractères valides
+                m_servoSet.servoId = command[0] - '1';
+                char direction = command[1];
+
+                // DEBUG
+                Serial.print(F("Dir: "));
+                Serial.println(direction);
+
+                move->setCurrentLED(m_servoSet.servoId);
+
+                if (direction == 'L') m_servoSet.pulse = 4;
+                else if (direction == 'R') m_servoSet.pulse = 8;
+                else m_servoSet.pulse = 0;
+
+                move->setServoSettings(m_servoSet);
+            }
+
+            index = 0; // reset pour le prochain message
+        } 
+        else if (index < sizeof(command) - 1) {
+            command[index++] = c;
+        }
+        else {
+            // si trop long => reset
+            index = 0;
+        }
+    }
     
 }
 
-void ManageState::modeBluetooth(Button button, ManageMove* move) {  
+void ManageState::modeBluetooth(ManageMove* move) {  
 }
 

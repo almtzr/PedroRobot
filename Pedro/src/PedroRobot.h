@@ -9,10 +9,8 @@
 #include "core/Command.h"
 
 // Modes
-#include "modes/ModeNormal.h"
 #include "modes/ModePlayback.h"
 #include "modes/ModeBluetooth.h"
-#include "modes/ModeWeb.h"
 #include "modes/ModeRadio.h"
 
 // Config

@@ -75,6 +75,7 @@ void ManageDisplay::screenControl() {
         u8g.drawStr(2, SCREEN_SIZE_Y - 10, modeToString(m_selectedMode));
         u8g.setColorIndex(1);
     } while( u8g.nextPage() );
+    m_currentScreen = -1;
 }
 
 void ManageDisplay::menuPosition(ModeType selectedMode, uint8_t positionX, uint8_t positionY, uint8_t bloc) {  

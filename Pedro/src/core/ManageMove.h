@@ -20,14 +20,21 @@ class ManageMove {
     void AddMovement(int pulse, unsigned long duration, uint8_t servo);
     void Replay();
     void setServoSettings(ServoSettings servoSet);
-    void updateServo();
+    void moveServo();
+    void recordMove();
+    void initRecord();
+    void startRecord();
+    void startReplay();
 
   private:
-    static const uint8_t MAX_MOVEMENTS = 40;
+    static const uint8_t MAX_MOVEMENTS = 50;
     Movement m_movements[MAX_MOVEMENTS];
     ServoSettings m_servoSet;
+    int16_t m_lastPulse;
     uint8_t m_index;
     uint8_t m_currentLED;
+    unsigned long m_previousMillis;
+    bool  m_startRecord;
 };
 
 #endif
