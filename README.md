@@ -1,5 +1,4 @@
-* **Note:** The firmware is still being optimized to reduce flash memory usage on the Pedro Board (ATmega32U4). Currently (release 1.0.3
-), it occupies about 98% of the available 32 KB, with the goal of reducing it closer to 90% for better efficiency. Optimization work is ongoing for the upcoming release 1.0.4.
+* **Note:** The firmware is still being optimized to reduce flash memory usage (ATmega32U4) on the Pedro Board. Currently ([release 1.0.3](https://github.com/almtzr/PedroRobot/releases/tag/v.1.0.3)), it occupies about 98% of the available 32 KB, with the goal of reducing it closer to 90% for better efficiency. I’m still working on reducing it closer to 90% for better efficiency in the upcoming release 1.0.4.
 
 # PedroRobot – Firmware
 
