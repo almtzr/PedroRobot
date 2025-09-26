@@ -1,6 +1,6 @@
 #include "ManageButton.h"
 
-void ManageButton::Init() {
+void ManageButton::init() {
     pinMode(BTN_LEFT, INPUT_PULLUP);
     pinMode(BTN_CENTER, INPUT_PULLUP);
     pinMode(BTN_RIGHT, INPUT_PULLUP);

@@ -6,7 +6,7 @@
 
 class ManageButton {
   public:
-    void Init();
+    void init();
     void update();
 
 

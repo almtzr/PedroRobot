@@ -19,15 +19,14 @@ class ManageButton;
 class ManageDisplay;
 class ManageMove;
 class ModeRadio;
+class ModeBluetooth;
 
 class ManageState {
   public:
     ManageState();
-    void updateState(ManageButton* btn, ManageDisplay* display, ManageMove* move, ModeRadio* radio);
-
-  private:
+    void update(ManageButton* btn, ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeBluetooth* bluetooth);
     void screenIntro(ManageDisplay* display);
-    void screenControl(ManageDisplay* display, ManageMove* move, ModeRadio* radio);
+    void screenControl(ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeBluetooth* bluetooth);
     void screenSelectMode(ManageDisplay* display, ManageMove* move);
     void screenRadio(ManageDisplay* display, ModeRadio* radio);
     bool allButtonsReleased(ManageButton* btn);
@@ -37,8 +36,8 @@ class ManageState {
     void modeReplay(ManageMove* move);
     void modeRadio(ManageMove* move, ModeRadio* radio);
     void modeWebctrl(ManageMove* move);
-    void modeBluetooth(ManageMove* move);
-
+    void modeBluetooth(ManageMove* move, ModeBluetooth* bluetooth);
+  private:
     Button m_button;
     ScreenType m_currentScreen;
     ModeType m_currentMode;

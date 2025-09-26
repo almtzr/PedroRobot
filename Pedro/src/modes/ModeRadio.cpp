@@ -21,17 +21,17 @@ ModeRadio::ModeRadio() {
   m_radioDecode.rotation = 0;
 }
 
-void ModeRadio::Init() {  
+void ModeRadio::init() {  
   radio.begin();
   radio.setAutoAck(false);
   radio.setDataRate(RF24_2MBPS);  //RF24_250KBPS, RF24_1MBPS, RF24_2MBPS
   radio.setChannel(120); //2400 + 120 = 2520MHz 76 default
 }
 
-void ModeRadio::setRadioSettings(RadioSettings radioSet) {
+void ModeRadio::startRadio(RadioSettings radioSet) {
     m_radioSet = radioSet;
     m_radioActive = true;
-    updateRadio();
+    initRadio();
 }
 
 void ModeRadio::setRadioEncode(RadioMessage radioMsg) {
@@ -42,7 +42,7 @@ RadioMessage ModeRadio::getRadioDecode() {
     return m_radioDecode;
 }
 
-void ModeRadio::updateRadio() {
+void ModeRadio::initRadio() {
     address[4] = m_radioSet.radioCode;
     if (m_radioSet.radioType == TX) {
         Serial.println("Changement → MODE TX");
@@ -69,7 +69,8 @@ void ModeRadio::stopRadio() {
   m_radioActive = false;
 }
 
-void ModeRadio::radioRXTX() {
+void ModeRadio::update() {
+    if (!m_radioActive) return;
     if (m_radioSet.radioType == TX) {
         if (millis() - lastSend >= sendInterval) {
             lastSend = millis();

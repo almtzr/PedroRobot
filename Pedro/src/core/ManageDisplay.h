@@ -6,7 +6,7 @@
 
 class ManageDisplay {
   public:
-    void Init();
+    void init();
     void screenIntro();
     void updateDisplay();
     void screenControl();

@@ -13,7 +13,7 @@ struct Movement {
 class ManageMove {
   public:
     ManageMove();
-    void Init();
+    void init();
     void LEDOFF();
     void servoIDLE(uint8_t servoId);
     void setCurrentLED(uint8_t LEDId);

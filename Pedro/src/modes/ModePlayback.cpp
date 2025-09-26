@@ -1,6 +1,6 @@
 #include "ModePlayback.h"
 
-void ModePlayback::Init() {
+void ModePlayback::init() {
     // Init playback mode
 }
 

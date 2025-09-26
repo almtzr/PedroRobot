@@ -3,6 +3,10 @@
 
 #include <Arduino.h>
 
+constexpr char buffer[4];
+extern char bufferBT[3];       // buffer réception (2 chiffres + '\0')
+extern uint8_t idx;          // index du buffer
+
 // Types d’écran
 enum ScreenType : uint8_t {
     INTRO,

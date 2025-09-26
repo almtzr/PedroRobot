@@ -5,7 +5,7 @@
 
 class ModePlayback {
   public:
-    void Init();
+    void init();
     void Record();
     void Replay();
 };

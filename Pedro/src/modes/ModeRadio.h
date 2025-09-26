@@ -10,13 +10,13 @@ class ManageMove;
 class ModeRadio {
   public:
     ModeRadio();
-    void Init();
+    void init();
     //void radioTx(RadioMessage radioMsg);
     //RadioMessage radioRx();
     void stopRadio();
-    void updateRadio();
-    void setRadioSettings(RadioSettings radioSet);
-    void radioRXTX();
+    void initRadio();
+    void startRadio(RadioSettings radioSet);
+    void update();
     void setRadioEncode(RadioMessage radioMsg);
     RadioMessage getRadioDecode();
   private:

@@ -19,7 +19,7 @@ ManageMove::ManageMove() {
     m_servoSet.servoId = 0;
 }
 
-void ManageMove::Init() {
+void ManageMove::init() {
     pinMode(BTN_LEFT, INPUT);
     pinMode(BTN_CENTER, INPUT);
     pinMode(BTN_RIGHT, INPUT);

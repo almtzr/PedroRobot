@@ -3,6 +3,7 @@
 #include "ManageDisplay.h"
 #include "ManageMove.h"
 #include "modes/ModeRadio.h"
+#include "modes/ModeBluetooth.h"
 
 
 ManageState::ManageState() {
@@ -32,7 +33,7 @@ bool ManageState::allButtonsReleased(ManageButton* btn) {
            !btn->getBtnLeftPress();
 }
 
-void ManageState::updateState(ManageButton* btn, ManageDisplay* display, ManageMove* move, ModeRadio* radio) {
+void ManageState::update(ManageButton* btn, ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeBluetooth* bluetooth) {
 
     if (m_ignoreButtons) {
         if (allButtonsReleased(btn)) {
@@ -53,7 +54,7 @@ void ManageState::updateState(ManageButton* btn, ManageDisplay* display, ManageM
 
     switch (m_currentScreen) {
         case ScreenType::INTRO:          screenIntro(display); break;
-        case ScreenType::CONTROL:        screenControl(display, move, radio); break;
+        case ScreenType::CONTROL:        screenControl(display, move, radio, bluetooth); break;
         case ScreenType::SELECT_MODE:    screenSelectMode(display, move); break;
         case ScreenType::RADIO_SETTINGS: screenRadio(display, radio); break;
     }
@@ -74,11 +75,12 @@ void ManageState::screenIntro(ManageDisplay* display) {
     }
 }
 
-void ManageState::screenControl(ManageDisplay* display, ManageMove* move, ModeRadio* radio) {
+void ManageState::screenControl(ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeBluetooth* bluetooth) {
 
     if (m_button.btnCenterPress) {
         screenTransition(ScreenType::SELECT_MODE, display);
         radio->stopRadio();
+        bluetooth->stopBluetooth();
     }
 
     switch (m_currentMode) {
@@ -86,7 +88,7 @@ void ManageState::screenControl(ManageDisplay* display, ManageMove* move, ModeRa
         case ModeType::RECORD:    modeRecord(move); break;
         case ModeType::REPLAY:    modeReplay(move); break;
         case ModeType::WEBCTRL:   modeWebctrl(move); break;
-        case ModeType::BLUETOOTH: modeBluetooth(move); break;
+        case ModeType::BLUETOOTH: modeBluetooth(move, bluetooth); break;
         case ModeType::RADIO:     modeRadio(move, radio); break;
     }
 }
@@ -151,7 +153,7 @@ void ManageState::screenRadio(ManageDisplay* display, ModeRadio* radio) {
         if (m_button.btnCenterClick) {
             display->setModeSelected(m_currentMode);
             screenTransition(ScreenType::CONTROL, display);
-            radio->setRadioSettings(m_radioSet);
+            radio->startRadio(m_radioSet);
         }
     }
 }
@@ -222,7 +224,6 @@ void ManageState::modeWebctrl(ManageMove* move) {
 
     while (Serial.available()) {
         char c = Serial.read();
-
         if (c == '\n') {
             command[index] = '\0';  // terminer la chaîne
 
@@ -256,6 +257,21 @@ void ManageState::modeWebctrl(ManageMove* move) {
     
 }
 
-void ManageState::modeBluetooth(ManageMove* move) {  
+void ManageState::modeBluetooth(ManageMove* move, ModeBluetooth* bluetooth) {  
+
+    if (m_currentMode == BLUETOOTH) {
+        bluetooth->startBluetooth();
+    }
+
+    m_radioDecode = bluetooth->getRadioDecode();
+    move->setCurrentLED(m_radioDecode.currentLed);
+    m_servoSet.pulse = 0;
+    m_servoSet.servoId = m_radioDecode.currentLed; 
+    if (m_radioDecode.rotation == 20) {
+        m_servoSet.pulse = 4;
+    } else if (m_radioDecode.rotation == 10) {
+        m_servoSet.pulse = 8;
+    } 
+    move->setServoSettings(m_servoSet);
 }
 

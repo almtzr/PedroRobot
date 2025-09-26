@@ -3,7 +3,7 @@
 
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_DEV_0|U8G_I2C_OPT_NO_ACK|U8G_I2C_OPT_FAST);
 
-void ManageDisplay::Init() {
+void ManageDisplay::init() {
     m_currentScreen = INTRO;
     m_selectedMode = NORMAL;
     m_selectRadio = 1;
@@ -129,7 +129,6 @@ void ManageDisplay::oledRadioKey() {
 
     u8g.setFont(u8g_font_7x13B);
 
-    char buffer[4];
     sprintf(buffer, "%d", m_radioSet.radioCode);
     
     if (m_selectRadio == 2) {
