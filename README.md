@@ -13,7 +13,7 @@ This guide explains each mode step by step with clear instructions and its STEM 
 Firmware for **Pedro Robot**.
 This repository contains the firmware to directly control the Pedro Robot in the following modes: Manual, Radio, Bluetooth, Replay, Record, and [Web Controller](https://www.pedrobot.com/webController.html)
 
-## 🖥️ Pedro Upload Firmware
+## 🖥️ Setup
 
 1. Install the latest Arduino IDE from [arduino.cc](https://www.arduino.cc/en/software).
 2. In Arduino IDE install **PedroRobot** library: Sketch → Include Library → Manage Libraries → search **PedroRobot** → Install.
@@ -41,7 +41,13 @@ This repository contains the firmware to directly control the Pedro Robot in the
 
 🔹 **What it does:** Direct control of servo motors using onboard buttons.
 
-* Power **ON** Pedro for default **Manual Mode**
+<div align="left">
+    <img src="https://github.com/almtzr/Pedro/blob/main/img/manual_mode.gif" width="20%">
+</div>
+
+🔹 **How to use:**
+
+* Power **ON** Pedro (default mode **Manual**)
 * Use button **A0** to Select Servo.
 * Use button **A1** to Move Servo to Left.
 * Use button **A2** to Move Servo to Right.
@@ -51,6 +57,11 @@ This repository contains the firmware to directly control the Pedro Robot in the
 ## 🎥 2. Record & Replay Mode
 
 🔹 **What it does:** Record servo movements, then replay them.
+
+<div align="left">
+    <img src="https://github.com/almtzr/Pedro/blob/main/img/repeat_mode.gif" width="20%">
+</div>
+
 🔹 **How to use:**
 
 1. Enter the **Select Mode** menu (hold button **A0** for 4 seconds).
@@ -67,6 +78,11 @@ This repository contains the firmware to directly control the Pedro Robot in the
 ## 📶 3. Bluetooth Mode (HC-05)
 
 🔹 **What it does:** Control Pedro via smartphone or PC.
+
+<div align="left">
+    <img src="https://github.com/almtzr/Pedro/blob/main/img/bluetooth_mode.gif" width="20%">
+</div>
+
 🔹 **Setup:**
 
 1. Download the **Serial Bluetooth** app (iOS or Android).
@@ -79,8 +95,8 @@ This repository contains the firmware to directly control the Pedro Robot in the
 * Name: **BwD** (Backward) → Value: **6** → Mode: **Text** → Action: **Send**.
 * Name: **Stop** → Value: **7** → Mode: **Text** → Action: **Send**.
 3. On Pedro, set the switch **AT → BT** to: **BT**.
-3. Pair your device with Pedro’s HC-05 module (default name: HC-05, PIN: 1234).
-4. Use the app buttons to send commands and control Pedro in real time.
+4. Pair your device with Pedro’s HC-05 module (default name: HC-05, PIN: 1234).
+5. Use the app buttons to send commands and control Pedro in real time.
 
 🛠️ **AT Mode Setup (Optional – change Pedro’s Bluetooth name):**
 
@@ -100,6 +116,11 @@ This repository contains the firmware to directly control the Pedro Robot in the
 ## 📡 4. Radio Mode (NRF24L01)
 
 🔹 **What it does:** Enables remote communication between two Pedro robots or more using the NRF24L01 radio module.
+
+<div align="left">
+    <img src="https://github.com/almtzr/Pedro/blob/main/img/radio_mode.gif" width="20%">
+</div>
+
 🔹 **Setup:**
 
 1. Insert the **NRF24L01 module** into the left slot of each Pedro board (one robot as transmitter, the other as receiver).
@@ -126,11 +147,11 @@ This repository contains the firmware to directly control the Pedro Robot in the
 🔹 **Setup:**
 
 1. Enter the **Select Mode** menu (hold button **A0** for 4 seconds).
-4. Choose **USB SERIAL MODE** from the menu.
-5. Press **A0** to confirm.
-1. Connect Pedro via USB cable.
-2. Launch the [web controller](https://www.pedrobot.com/webController.html) app.
-3. Send commands & test servo response.
+2. Choose **USB SERIAL MODE** from the menu.
+3. Press **A0** to confirm.
+4. Connect Pedro via USB cable.
+5. Launch the [web controller](https://www.pedrobot.com/webController.html) app.
+6. Send commands & test servo response.
 
 🎓 **STEM Insight:** Embedded programming and PC-robot communication.
 
