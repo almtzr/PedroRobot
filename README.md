@@ -1,17 +1,8 @@
 # 📘 Pedro Robot Firmware – Quick Start Guide
 
----
-
-**First Version 1.0.0 – September 2025**
-👉 Full source code available here: [Pedro-Firmware GitHub](https://github.com/almtzr/Pedro-Firmware)
-
-Pedro’s firmware gives you multiple ways to control the robot in the following modes: Direct control, Record & Replay, Bluetooth, Radio, and USB Serial.
-This guide explains each mode step by step with clear instructions and its STEM learning outcome.
+Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radio**, and **USB Serial**.
 
 ---
-
-Firmware for **Pedro Robot**.
-This repository contains the firmware to directly control the Pedro Robot in the following modes: Manual, Radio, Bluetooth, Replay, Record, and [Web Controller](https://www.pedrobot.com/webController.html)
 
 ## 🖥️ Setup
 
@@ -41,10 +32,6 @@ This repository contains the firmware to directly control the Pedro Robot in the
 
 🔹 **What it does:** Direct control of servo motors using onboard buttons.
 
-<div align="left">
-    <img src="https://github.com/almtzr/Pedro/blob/main/img/manual_mode.gif" width="20%">
-</div>
-
 🔹 **How to use:**
 
 * Power **ON** Pedro (default mode **Manual**)
@@ -57,10 +44,6 @@ This repository contains the firmware to directly control the Pedro Robot in the
 ## 🎥 2. Record & Replay Mode
 
 🔹 **What it does:** Record servo movements, then replay them.
-
-<div align="left">
-    <img src="https://github.com/almtzr/Pedro/blob/main/img/repeat_mode.gif" width="20%">
-</div>
 
 🔹 **How to use:**
 
@@ -78,10 +61,6 @@ This repository contains the firmware to directly control the Pedro Robot in the
 ## 📶 3. Bluetooth Mode (HC-05)
 
 🔹 **What it does:** Control Pedro via smartphone or PC.
-
-<div align="left">
-    <img src="https://github.com/almtzr/Pedro/blob/main/img/bluetooth_mode.gif" width="20%">
-</div>
 
 🔹 **Setup:**
 
@@ -111,15 +90,9 @@ This repository contains the firmware to directly control the Pedro Robot in the
 
 🎓 **STEM Insight:** : Students learn about wireless serial communication and how to configure Bluetooth modules for embedded systems.
 
----
-
 ## 📡 4. Radio Mode (NRF24L01)
 
 🔹 **What it does:** Enables remote communication between two Pedro robots or more using the NRF24L01 radio module.
-
-<div align="left">
-    <img src="https://github.com/almtzr/Pedro/blob/main/img/radio_mode.gif" width="20%">
-</div>
 
 🔹 **Setup:**
 
@@ -155,23 +128,25 @@ This repository contains the firmware to directly control the Pedro Robot in the
 
 🎓 **STEM Insight:** Embedded programming and PC-robot communication.
 
----
+## 🚀 Pedro Project Repositories
 
-# 🚀 Next Steps
+🔧 Each Pedro repository serves a specific role in the ecosystem:
 
-* Explore the **10 STEM lesson plans** (coming soon).
-* Join the Pedro community: [GitHub](https://github.com/almtzr/Pedro) | [pedrobot.com](https://pedrobot.com)
+### 📂 [`Pedro`](https://github.com/almtzr/Pedro)
+> 🖨️ 3D printing resources — STL files and assembly instructions for building the Pedro robot chassis.
 
----
+### 📂 [`PedroBoard`](https://github.com/almtzr/PedroBoard)
+> ⚡ Hardware design — Gerber files, schematics, and PCB layouts for the Pedro controller board.
 
-## 📑 Documentation & Resources
+### 📂 [`PedroRobot`](https://github.com/almtzr/PedroRobot)
+> 💻 Firmware — Arduino source code and library to program and control the Pedro robot.
 
-👉 Find the complete documentation, as well as the STL files for 3D printing, in the main repository: [Pedro](https://github.com/almtzr/Pedro)
-
-## 🤝 Contribution
-
-Contributions are welcome!
-Feel free to open an issue or submit a pull request to improve the firmware.
+### 📂 [`PedroSTEM`](https://github.com/almtzr/PedroSTEM)
+  🎓 Education — STEM lessons, activities, and teaching material using the Pedro robot for schools.
 
 ---
+
+</br>
+
+> Made with ❤️ by [@almtzr](https://github.com/almtzr)
 
