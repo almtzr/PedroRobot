@@ -1,5 +1,6 @@
-# 📘 Pedro Robot Firmware – Quick Start Guide
+# 📘 How to Program Pedro?
 
+Source code and library to program and control the Pedro robot.
 Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radio**, and **USB Serial**.
 
 ---
