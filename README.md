@@ -1,9 +1,7 @@
-# 📘 How to Program Pedro?
+# 📂 Pedro Robot
 
 Source code and library to program and control the Pedro robot.
 Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radio**, and **USB Serial**.
-
----
 
 ## 🖥️ Setup
 
@@ -21,32 +19,32 @@ Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radi
 ## ✨ Pedro Modes
 
 <div align="left">
-    <img src="img/1.png" width="40%">
-    <img src="img/2.png" width="40%">
+    <img src="img/1.png" width="45%">
+    <img src="img/2.png" width="45%">
 </div>
 <div align="left">
-    <img src="img/3.png" width="40%">
-    <img src="img/4.png" width="40%">
+    <img src="img/3.png" width="45%">
+    <img src="img/4.png" width="45%">
 </div>
 
 ## 🎮 1. Manual Mode
 
-🔹 **What it does:** Direct control of servo motors using onboard buttons.
+**What it does:** Direct control of servo motors using onboard buttons.
 
-🔹 **How to use:**
+**How to use:**
 
-* Power **ON** Pedro (default mode **Manual**)
-* Use button **A0** to Select Servo.
-* Use button **A1** to Move Servo to Left.
-* Use button **A2** to Move Servo to Right.
+1. Power **ON** Pedro (default mode **Manual**)
+2. Use button **A0** to Select Servo.
+3. Use button **A1** to Move Servo to Left.
+4. Use button **A2** to Move Servo to Right.
 
 🎓 **STEM Insight:** Learn about servo motors and direct PWM control.
 
 ## 🎥 2. Record & Replay Mode
 
-🔹 **What it does:** Record servo movements, then replay them.
+**What it does:** Record servo movements, then replay them.
 
-🔹 **How to use:**
+**How to use:**
 
 1. Enter the **Select Mode** menu (hold button **A0** for 4 seconds).
 2. Choose **Record Mode** from the menu.
@@ -61,9 +59,9 @@ Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radi
 
 ## 📶 3. Bluetooth Mode (HC-05)
 
-🔹 **What it does:** Control Pedro via smartphone or PC.
+**What it does:** Control Pedro via smartphone or PC.
 
-🔹 **Setup:**
+**How to use:**
 
 1. Download the **Serial Bluetooth** app (iOS or Android).
 2. Create 7 control buttons with the following configuration:
@@ -93,9 +91,9 @@ Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radi
 
 ## 📡 4. Radio Mode (NRF24L01)
 
-🔹 **What it does:** Enables remote communication between two Pedro robots or more using the NRF24L01 radio module.
+**What it does:** Enables remote communication between two Pedro robots or more using the NRF24L01 radio module.
 
-🔹 **Setup:**
+**How to use:**
 
 1. Insert the **NRF24L01 module** into the left slot of each Pedro board (one robot as transmitter, the other as receiver).
 2. Set Pedro’s switch **NRF → BT → WiFi** to: **NRF**.
@@ -117,8 +115,9 @@ Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radi
 
 ## 🌐 5. USB Serial Mode
 
-🔹 **What it does:** Control Pedro from your PC with Pedro-IHM.
-🔹 **Setup:**
+**What it does:** Control Pedro from your PC with Pedro-IHM.
+
+**How to use:**
 
 1. Enter the **Select Mode** menu (hold button **A0** for 4 seconds).
 2. Choose **USB SERIAL MODE** from the menu.
