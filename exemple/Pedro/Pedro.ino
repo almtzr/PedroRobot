@@ -6,8 +6,8 @@
 //  Servo Type       : 360° SG90 or MG90
 //  GitHub Repo      : https://github.com/almtzr/PedroRobot
 //  Author           : Almoutazar SAANDI
-//  Date             : Sep 29, 2025
-//  Last Update      : v1.0.5
+//  Date             : Oct 6, 2025
+//  Last Update      : v1.0.0
 // ========================================================================================
 
 #include <PedroRobot.h>
