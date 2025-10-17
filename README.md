@@ -11,20 +11,28 @@ Each Pedro repository serves a specific role in the ecosystem:
 Source code and library to program and control the Pedro robot.
 Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radio**, and **USB Serial**.
 
-## 🖥️ Setup
+## ⚙️ Installing and Uploading Pedro Firmware
 
-1. Install the latest Arduino IDE from [arduino.cc](https://www.arduino.cc/en/software).
-2. In Arduino IDE install **PedroRobot** library: Sketch → Include Library → Manage Libraries → search **PedroRobot** → Install.
-3. Install required dependencies:
-   * **U8glib**: Sketch → Include Library → Manage Libraries → search **U8glib** → Install.
-   * **RF24**: Sketch → Include Library → Manage Libraries → search **RF24** → Install.
-4. Select your board: Tools → Board → Arduino Micro and the correct port.
-5. Open the example: File → Examples → PedroRobot → PedroRobot.
-6. Compile and upload to the board.
+1. **Download and install** the latest version of the [Arduino IDE](https://www.arduino.cc/en/software).
+2. **Install the required libraries** from the Library Manager:
+   * **PedroRobot**: Tools → Manage Libraries → search **PedroRobot** → Install
+   * **U8glib**: Tools → Manage Libraries → search **U8glib** → Install
+   * **RF24**: Tools → Manage Libraries → search **RF24** → Install
+3. **Connect** your Pedro robot to your computer via USB.
+4. **Select the correct port**:
+   * Tools → Select the port that appear when you connect Pedro robot
+5. **Select the board type**:
+   * Tools → Board → Arduino Micro
+6. **Open the example sketch**:
+   * File → Examples → PedroRobot → Pedro
+7. **Compile and upload** the sketch to your Pedro board.
+
+✅ Done!
+Your Pedro robot is now ready to run with the latest firmware.
 
 > **Note:** Make sure all dependencies are installed before compiling to avoid errors.
 
-## ✨ Pedro Modes
+## ✨ Get Started with Pedro Control Modes
 
 <div align="left">
     <img src="img/1.png" width="45%">
