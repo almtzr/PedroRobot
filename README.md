@@ -144,3 +144,6 @@ Your Pedro robot is now ready to run with the latest firmware.
 
 🎓 **STEM Insight:** Embedded programming and PC-robot communication.
 
+---
+
+[Arduino logs library](https://downloads.arduino.cc/libraries/logs/github.com/almtzr/PedroRobot/)
