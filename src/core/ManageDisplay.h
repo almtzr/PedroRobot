@@ -22,6 +22,7 @@ class ManageDisplay {
     void oledTransmissionType ();
     void oledRadioKey ();
     void oledUpdate ();
+    void oledCancel ();
     void oledBluetoothName ();
     void oledButtonOK ();
     void setDisplayScreen(ScreenType screen);

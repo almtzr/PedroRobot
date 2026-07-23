@@ -120,6 +120,7 @@ void ManageDisplay::screenSettings() {
            u8g.drawStr(2, 13, TITLE_BLUETOOTH);
            if (m_enableATmode == KO) u8g.drawStr(10, SCREEN_SIZE_Y/2, "AT MODE DISABLE");
            oledUpdate();
+           oledCancel();
         } else if (m_currentScreen == BLUETOOTH_UPDATE) { 
            u8g.drawStr(2, 13, TITLE_BLUETOOTH_UPDATE);
            u8g.drawStr(2, SCREEN_SIZE_Y/2, "NAME:");
@@ -183,16 +184,29 @@ void ManageDisplay::oledBluetoothName() {
     }
 }
 
+void ManageDisplay::oledCancel() {  
+    
+    u8g.setFont(u8g_font_8x13B);
+    if (m_param == PARAM5) {
+        u8g.drawBox(SCREEN_SIZE_X/2 - 7, SCREEN_SIZE_Y - 18, SCREEN_SIZE_X/6, 15);
+        u8g.setColorIndex(1);
+        u8g.drawStr(SCREEN_SIZE_X/2, SCREEN_SIZE_Y - 5, "X");
+    } else {
+        u8g.setColorIndex(0);
+        u8g.drawStr(SCREEN_SIZE_X/2, SCREEN_SIZE_Y - 5, "X");
+    }
+}
+
 void ManageDisplay::oledUpdate() {  
     
     u8g.setFont(u8g_font_8x13B);
     if (m_param == PARAM4) {
-        u8g.drawBox(2, SCREEN_SIZE_Y - 18, SCREEN_SIZE_X/2, 15);
+        u8g.drawBox(1, SCREEN_SIZE_Y - 18, SCREEN_SIZE_X/2.4, 15);
         u8g.setColorIndex(1);
-        u8g.drawStr(7, SCREEN_SIZE_Y - 5, "UPDATE");
+        u8g.drawStr(4, SCREEN_SIZE_Y - 5, "UPDATE");
     } else {
         u8g.setColorIndex(0);
-        u8g.drawStr(7, SCREEN_SIZE_Y - 5, "UPDATE");
+        u8g.drawStr(4, SCREEN_SIZE_Y - 5, "UPDATE");
     }
 }
 
@@ -200,12 +214,12 @@ void ManageDisplay::oledButtonOK() {
     
     u8g.setFont(u8g_font_8x13B);
     if (m_param == PARAM3) {
-        u8g.drawBox(SCREEN_SIZE_X/2 + 25, SCREEN_SIZE_Y - 18, SCREEN_SIZE_X/4, 15);
+        u8g.drawBox(SCREEN_SIZE_X/2 + 36, SCREEN_SIZE_Y - 18, SCREEN_SIZE_X/4.8, 15);
         u8g.setColorIndex(1);
-        u8g.drawStr(SCREEN_SIZE_X/2 + 34, SCREEN_SIZE_Y - 5, "OK");
+        u8g.drawStr(SCREEN_SIZE_X/2 + 42, SCREEN_SIZE_Y - 5, "OK");
     } else {
         u8g.setColorIndex(0);
-        u8g.drawStr(SCREEN_SIZE_X/2 + 34, SCREEN_SIZE_Y - 5, "OK");
+        u8g.drawStr(SCREEN_SIZE_X/2 + 42, SCREEN_SIZE_Y - 5, "OK");
     }
 }
 

@@ -44,7 +44,8 @@ enum SetParam : uint8_t {
     PARAM1,
     PARAM2,
     PARAM3,
-    PARAM4
+    PARAM4,
+    PARAM5
 };
 
 struct PedroMessage {

@@ -153,21 +153,42 @@ void ManageState::screenUpdateBluetooth(ManageDisplay* display, ModeUART* blueto
     }
 }
 
-
 void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
     if (m_button.btnRightClick) {
-        m_param = PARAM3;
+      //  m_param = PARAM3; //OK
+        if (m_param == PARAM4) {
+            m_param = PARAM5;
+        } 
+        else if (m_param == PARAM5) {
+            m_param = PARAM3;
+        }
+        else {
+            m_param = PARAM3;
+        }
     } else if (m_button.btnLeftClick) {
-        m_param = PARAM4;
+       // m_param = PARAM4; //UPDATE
+        if (m_param == PARAM3) {
+            m_param = PARAM5;
+        } 
+        else if (m_param == PARAM5) {
+            m_param = PARAM4;
+        }
+        else {
+            m_param = PARAM4;
+        }
     }
     display->setRadioSelected (m_param);
 
     if (m_button.btnCenterClick) {
         if (m_param == PARAM3){
-            display->setModeSelected(m_currentMode);
-            screenTransition(ScreenType::CONTROL, display);
-            m_radioSet.TxRxType = RX;
-            bluetooth->startBluetooth(m_radioSet);
+            if (bluetooth->enableATmode() == OK) {
+                display->setModeSelected(m_currentMode);
+                screenTransition(ScreenType::CONTROL, display);
+                m_radioSet.TxRxType = RX;
+                bluetooth->startBluetooth(m_radioSet);
+            } else if (bluetooth->enableATmode() == KO) {
+                display->setEnableATmode(KO);
+            }
         } else if (m_param == PARAM4){
             if (bluetooth->enableATmode() == OK) {
                 display->setModeSelected(m_currentMode);
@@ -175,6 +196,8 @@ void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
             } else if (bluetooth->enableATmode() == KO) {
                 display->setEnableATmode(KO);
             }
+        } else if (m_param == PARAM5){
+          screenTransition(ScreenType::SELECT_MODE, display);
         }
     }
 }

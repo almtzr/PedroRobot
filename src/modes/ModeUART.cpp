@@ -87,33 +87,31 @@ void ModeUART::update() {
 
         Serial1.write('\n');    
     } else if (m_radioSet.TxRxType == RX) {
-        while (Serial1.available()) {
-            char c = Serial1.read();
-            //m_messageDecode.rotation = 30;   POUR BT DECOMMENTER!!!!!!! A TESTER
-            if (c == '\n') {
-                bufferBT[idx] = '\0'; // fin de chaîne
-                idx = 0;
+        if (Serial1.available()) {
+            char cmd = Serial1.read();
 
-                // décodage des 2 chiffres
-                uint8_t cmd = bufferBT[0] - '0';  // ex: '1' -> 1
+            // Serial.print("Reçu : ");
+            // Serial.println(cmd);
 
-                Serial.println(bufferBT[0]);
+            switch(cmd) {
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                    m_messageDecode.currentLed = cmd - '1';
+                    break;
 
-                if (cmd >= 1 && cmd <= 4) {
-                    m_messageDecode.currentLed = cmd - 1;
-                }
+                case '5':
+                    m_messageDecode.rotation = 10;
+                    break;
 
-                switch (cmd) {
-                    case 5: m_messageDecode.rotation = 10; break;
-                    case 6: m_messageDecode.rotation = 20; break;
-                    case 7: m_messageDecode.rotation = 30; break;
-                    //default: rotation = 0; break;
-                }
+                case '6':
+                    m_messageDecode.rotation = 20;
+                    break;
 
-            } else if (idx < 2) {
-                bufferBT[idx++] = c;  // enregistrer chiffre si valide
-            } else {
-                idx = 0; // reset en cas d'erreur
+                case '7':
+                    m_messageDecode.rotation = 30;
+                    break;
             }
         }
     }
