@@ -42,6 +42,9 @@ Your Pedro robot is now ready to run with the latest firmware.
     <img src="img/3.png" width="45%">
     <img src="img/4.png" width="45%">
 </div>
+<div align="left">
+    <img src="img/5.png" width="45%">
+</div>
 
 ## 🎮 1. Manual Mode
 
@@ -144,6 +147,9 @@ Your Pedro robot is now ready to run with the latest firmware.
 
 🎓 **STEM Insight:** Embedded programming and PC-robot communication.
 
+## 🌐 6. UART Mode
+
+work in progress
 ---
 
 [Arduino logs library](https://downloads.arduino.cc/libraries/logs/github.com/almtzr/PedroRobot/)
