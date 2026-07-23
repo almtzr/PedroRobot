@@ -8,7 +8,7 @@
 #include "core/ManageMove.h"
 
 // Modes
-#include "modes/ModeBluetooth.h"
+#include "modes/ModeUART.h"
 #include "modes/ModeRadio.h"
 
 // Config

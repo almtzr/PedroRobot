@@ -17,17 +17,19 @@ class ManageDisplay {
     void oledRepeat();
     void oledRadio();
     void oledUSB();
+    void oledUART();
     void oledBluetooth();
-    void oledRadioType ();
+    void oledTransmissionType ();
     void oledRadioKey ();
     void oledUpdate ();
+    void oledCancel ();
     void oledBluetoothName ();
-    void oledRadioOK ();
+    void oledButtonOK ();
     void setDisplayScreen(ScreenType screen);
     void menuPosition(ModeType modeSelected, uint8_t positionX, uint8_t positionY, uint8_t bloc);
     void setRadioSelected(SetParam param);
     void setModeSelected(ModeType mode);
-    void setRadioType(RadioType type);
+    void setTransmissionType(TransmissionType type);
     void setRadioKey(uint8_t key);
     void setEnableATmode(EnableATmode ATmode);
     char* modeToString(ModeType mode);
@@ -37,7 +39,7 @@ class ManageDisplay {
     ScreenType m_currentScreen;
     ModeType m_selectedMode;
     SetParam m_param;
-    RadioSettings m_radioSet;
+    TransmissionSettings m_radioSet;
 };
 
 #endif

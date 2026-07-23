@@ -17,18 +17,19 @@ class ManageButton;
 class ManageDisplay;
 class ManageMove;
 class ModeRadio;
-class ModeBluetooth;
+class ModeUART;
 
 class ManageState {
   public:
     ManageState();
-    void update(ManageButton* btn, ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeBluetooth* bluetooth);
+    void update(ManageButton* btn, ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeUART* uart);
     void screenIntro(ManageDisplay* display);
-    void screenControl(ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeBluetooth* bluetooth);
+    void screenControl(ManageDisplay* display, ManageMove* move, ModeRadio* radio, ModeUART* uart);
     void screenSelectMode(ManageDisplay* display, ManageMove* move);
     void screenRadio(ManageDisplay* display, ModeRadio* radio);
-    void screenBluetooth(ManageDisplay* display, ModeBluetooth* bluetooth);
-    void screenUpdateBluetooth(ManageDisplay* display, ModeBluetooth* bluetooth);
+    void screenUART(ManageDisplay* display, ModeUART* uart);
+    void screenBluetooth(ManageDisplay* display, ModeUART* bluetooth);
+    void screenUpdateBluetooth(ManageDisplay* display, ModeUART* bluetooth);
     bool allButtonsReleased(ManageButton* btn);
     void screenTransition(ScreenType screenType, ManageDisplay* display);
     void modeManual(ManageMove* move);
@@ -36,7 +37,9 @@ class ManageState {
     void modeReplay(ManageMove* move);
     void modeRadio(ManageMove* move, ModeRadio* radio);
     void modeUSB(ManageMove* move);
-    void modeBluetooth(ManageMove* move, ModeBluetooth* bluetooth);
+    void modeBluetooth(ManageMove* move, ModeUART* bluetooth);
+    void modeUART(ManageMove* move, ModeUART* uart);
+    void decodeMessage(ManageMove* move, PedroMessage* messageDecode);
   private:
     Button m_button;
     ScreenType m_currentScreen;
@@ -45,9 +48,9 @@ class ManageState {
     unsigned long m_previousMillis;
 
     bool m_ignoreButtons;
-    RadioSettings m_radioSet;
-    RadioMessage m_radioEncode;
-    RadioMessage m_radioDecode;
+    TransmissionSettings m_radioSet;
+    PedroMessage m_messageEncode;
+    PedroMessage m_messageDecode;
     ServoSettings m_servoSet;
 
 };

@@ -6,8 +6,8 @@
 //  Servo Type       : 360° SG90 or MG90
 //  GitHub Repo      : https://github.com/almtzr/PedroRobot
 //  Author           : Almoutazar SAANDI
-//  Date             : Oct 21, 2025
-//  Last Update      : v1.0.1
+//  Date             : Jun 21, 2026
+//  Last Update      : v1.0.4
 // ========================================================================================
 
 #include <PedroRobot.h>
@@ -17,7 +17,7 @@ ManageButton manageButton;
 ManageDisplay manageDisplay;
 ManageMove manageMove;
 ModeRadio modeRadio;
-ModeBluetooth modeBluetooth;
+ModeUART modeBluetooth;
 
 void setup() {
     Serial.begin(9600);
