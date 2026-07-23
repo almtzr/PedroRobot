@@ -17,7 +17,7 @@ ManageButton manageButton;
 ManageDisplay manageDisplay;
 ManageMove manageMove;
 ModeRadio modeRadio;
-ModeBluetooth modeBluetooth;
+ModeUART modeBluetooth;
 
 void setup() {
     Serial.begin(9600);

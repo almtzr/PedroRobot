@@ -9,7 +9,7 @@ void ManageDisplay::init() {
     m_param = PARAM1;
     m_enableATmode = NA;
     m_radioSet.radioCode = 1;
-    m_radioSet.radioType = TX;
+    m_radioSet.TxRxType = TX;
     screenIntro();
 }
 
@@ -18,10 +18,21 @@ char* ManageDisplay::modeToString(ModeType mode) {
     switch (mode) {
         case MANUAL:   return "MANUAL";
         case RECORD:   return "RECORD";
+        case UART:
+        if (m_currentScreen == CONTROL){
+            if (m_radioSet.TxRxType == TX) {
+                snprintf(buffer, sizeof(buffer), "UART TX");
+            } else {
+                snprintf(buffer, sizeof(buffer), "UART RX");
+            }
+            return buffer;
+        } else {
+            return "UART";
+        } 
         case REPLAY:   return "REPLAY";
         case RADIO:
         if (m_currentScreen == CONTROL){
-            if (m_radioSet.radioType == TX) {
+            if (m_radioSet.TxRxType == TX) {
                 snprintf(buffer, sizeof(buffer), "RADIO TX %d", m_radioSet.radioCode);
             } else {
                 snprintf(buffer, sizeof(buffer), "RADIO RX %d", m_radioSet.radioCode);
@@ -46,6 +57,7 @@ void ManageDisplay::update() {
         case ScreenType::CONTROL:            screenControl(); break;
         case ScreenType::SELECT_MODE:        screenSelectMode(); break;
         case ScreenType::RADIO_SETTINGS:     screenSettings(); break;
+        case ScreenType::UART_SETTINGS:     screenSettings(); break;
         case ScreenType::BLUETOOTH_SETTINGS: screenSettings(); break;
         case ScreenType::BLUETOOTH_UPDATE: screenSettings(); break;
     }
@@ -102,7 +114,7 @@ void ManageDisplay::screenSettings() {
            u8g.drawStr(2, 13, TITLE_RADIO);
            u8g.drawStr(2, SCREEN_SIZE_Y/2, "TYPE:");
            u8g.drawStr(2, SCREEN_SIZE_Y/1.3,"CODE:");
-           oledRadioType();
+           oledTransmissionType();
            oledRadioKey();
         } else if (m_currentScreen == BLUETOOTH_SETTINGS) { 
            u8g.drawStr(2, 13, TITLE_BLUETOOTH);
@@ -112,15 +124,17 @@ void ManageDisplay::screenSettings() {
            u8g.drawStr(2, 13, TITLE_BLUETOOTH_UPDATE);
            u8g.drawStr(2, SCREEN_SIZE_Y/2, "NAME:");
            oledBluetoothName();
+        } else if (m_currentScreen == UART_SETTINGS) { 
+           u8g.drawStr(2, 13, TITLE_UART);
+           u8g.drawStr(2, SCREEN_SIZE_Y/2, "TYPE:");
+           oledTransmissionType();
         }
-        
-        oledRadioOK();
-        
+        oledButtonOK();
         u8g.setColorIndex(1);
     } while( u8g.nextPage() );
 }
 
-void ManageDisplay::oledRadioType() {  
+void ManageDisplay::oledTransmissionType() {  
 
     u8g.setFont(u8g_font_7x13B);
 
@@ -130,9 +144,9 @@ void ManageDisplay::oledRadioType() {
     } else {
         u8g.setColorIndex(0);
     }
-    if (m_radioSet.radioType == TX) {
+    if (m_radioSet.TxRxType == TX) {
         u8g.drawStr(SCREEN_SIZE_X/3 + 2, SCREEN_SIZE_Y/2, TYPE_TX);
-    } else if (m_radioSet.radioType == RX){
+    } else if (m_radioSet.TxRxType == RX){
         u8g.drawStr(SCREEN_SIZE_X/3 + 2, SCREEN_SIZE_Y/2, TYPE_RX);
     }
 }
@@ -182,7 +196,7 @@ void ManageDisplay::oledUpdate() {
     }
 }
 
-void ManageDisplay::oledRadioOK() {  
+void ManageDisplay::oledButtonOK() {  
     
     u8g.setFont(u8g_font_8x13B);
     if (m_param == PARAM3) {
@@ -219,6 +233,10 @@ void ManageDisplay::oledRadio() {
     menuPosition (RADIO,50,3,SCREEN_SIZE_X/3.3); 
 }
 
+void ManageDisplay::oledUART() {  
+    menuPosition (UART,90,3,SCREEN_SIZE_X/3.3);
+}
+
 void ManageDisplay::screenSelectMode() {  
     u8g.firstPage();
     do {  
@@ -234,6 +252,7 @@ void ManageDisplay::screenSelectMode() {
         oledUSB();
         oledBluetooth();
         oledRadio();
+        oledUART();
         u8g.setColorIndex(1);
 
     } while( u8g.nextPage() );
@@ -247,8 +266,8 @@ void ManageDisplay::setModeSelected(ModeType mode) {
     m_selectedMode = mode;
 }
 
-void ManageDisplay::setRadioType(RadioType type) {
-    m_radioSet.radioType = type;
+void ManageDisplay::setTransmissionType(TransmissionType type) {
+    m_radioSet.TxRxType = type;
 }
 
 void ManageDisplay::setRadioKey(uint8_t key) {

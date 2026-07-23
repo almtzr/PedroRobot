@@ -13,6 +13,7 @@ enum ScreenType : uint8_t {
     CONTROL,
     SELECT_MODE,
     RADIO_SETTINGS,
+    UART_SETTINGS,
     BLUETOOTH_SETTINGS,
     BLUETOOTH_UPDATE
 };
@@ -24,10 +25,11 @@ enum ModeType : uint8_t {
     USBSERIAL,
     BLUETOOTH,
     RADIO,
+    UART,
     COUNT
 };
 
-enum RadioType : uint8_t {
+enum TransmissionType : uint8_t {
     TX,
     RX
 };
@@ -45,7 +47,7 @@ enum SetParam : uint8_t {
     PARAM4
 };
 
-struct RadioMessage {
+struct PedroMessage {
     byte currentLed;
     byte rotation;
 };
@@ -56,8 +58,8 @@ struct ServoSettings {
 };
 
 
-struct RadioSettings {
-    RadioType radioType;
+struct TransmissionSettings {
+    TransmissionType TxRxType;
     uint8_t radioCode;
 };
 
@@ -66,6 +68,7 @@ struct RadioSettings {
 #define TITLE_DLE "PEDRO ROBOT" 
 #define TITLE_MODE "SELECT MODE" 
 #define TITLE_RADIO "RADIO SETTINGS"
+#define TITLE_UART "UART SETTINGS"
 #define TITLE_BLUETOOTH "BLUETOOTH SETTINGS"
 #define TITLE_BLUETOOTH_UPDATE "BLUETOOTH UPDATE"
 

@@ -13,16 +13,16 @@ class ModeRadio {
     void init();
     void stopRadio();
     void initRadio();
-    void startRadio(RadioSettings radioSet);
+    void startRadio(TransmissionSettings radioSet);
     void update();
-    void setRadioEncode(RadioMessage radioMsg);
-    RadioMessage getRadioDecode();
+    void setRadioEncode(PedroMessage radioMsg);
+    PedroMessage getRadioDecode();
   private:
     RF24* m_radio;
     bool m_radioActive;
-    RadioSettings m_radioSet;
-    RadioMessage m_radioEncode;
-    RadioMessage m_radioDecode;
+    TransmissionSettings m_radioSet;
+    PedroMessage m_messageEncode;
+    PedroMessage m_messageDecode;
 };
 
 #endif

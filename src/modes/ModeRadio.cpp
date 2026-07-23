@@ -11,11 +11,11 @@ ManageMove* move;
 ModeRadio::ModeRadio() {
   m_radioActive = false;
   m_radioSet.radioCode = 1;
-  m_radioSet.radioType = RadioType::TX;
-  m_radioEncode.currentLed = 0;
-  m_radioEncode.rotation = 0;
-  m_radioDecode.currentLed = 0;
-  m_radioDecode.rotation = 0;
+  m_radioSet.TxRxType = TransmissionType::TX;
+  m_messageEncode.currentLed = 0;
+  m_messageEncode.rotation = 0;
+  m_messageDecode.currentLed = 0;
+  m_messageDecode.rotation = 0;
 }
 
 void ModeRadio::init() {  
@@ -25,27 +25,27 @@ void ModeRadio::init() {
   radio.setChannel(120); //2400 + 120 = 2520MHz 76 default
 }
 
-void ModeRadio::startRadio(RadioSettings radioSet) {
+void ModeRadio::startRadio(TransmissionSettings radioSet) {
     m_radioSet = radioSet;
     m_radioActive = true;
     initRadio();
 }
 
-void ModeRadio::setRadioEncode(RadioMessage radioMsg) {
-    m_radioEncode = radioMsg;
+void ModeRadio::setRadioEncode(PedroMessage radioMsg) {
+    m_messageEncode = radioMsg;
 }
 
-RadioMessage ModeRadio::getRadioDecode() {
-    return m_radioDecode;
+PedroMessage ModeRadio::getRadioDecode() {
+    return m_messageDecode;
 }
 
 void ModeRadio::initRadio() {
     address[4] = m_radioSet.radioCode;
-    if (m_radioSet.radioType == TX) {
+    if (m_radioSet.TxRxType == TX) {
         radio.powerUp();
         radio.stopListening();
         radio.openWritingPipe(address);
-    } else if (m_radioSet.radioType == RX) {
+    } else if (m_radioSet.TxRxType == RX) {
         move->LEDOFF();
         radio.powerUp();
         radio.closeReadingPipe(1);
@@ -65,14 +65,14 @@ void ModeRadio::stopRadio() {
 
 void ModeRadio::update() {
     if (!m_radioActive) return;
-    if (m_radioSet.radioType == TX) {
+    if (m_radioSet.TxRxType == TX) {
         if (millis() - lastSend >= TIME2) {
             lastSend = millis();
-            radio.write(&m_radioEncode, sizeof(m_radioEncode));
+            radio.write(&m_messageEncode, sizeof(m_messageEncode));
         }
-    } else if (m_radioSet.radioType == RX) {
+    } else if (m_radioSet.TxRxType == RX) {
         if (radio.available()) {
-            radio.read(&m_radioDecode, sizeof(m_radioDecode));
+            radio.read(&m_messageDecode, sizeof(m_messageDecode));
         }
     }
 }
