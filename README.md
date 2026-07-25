@@ -186,7 +186,7 @@ Connect the pins of the Pedro Robots transmitter and receiver as following:
 | 2. Enter the **Select Mode** menu | 2. Enter the **Select Mode** menu |
 | 3. Select **UART Mode** | 3. Select **UART Mode** |
 | 4. Press **A0** to confirm | 5. Press **A0** to confirm |
-| 5. Press **A1**to select the **TRANSMITTER** role | 5. Press **A1**to select the **RECEIVER** role |
+| 5. Press **A1** to select the **TRANSMITTER** role | 5. Press **A1** to select the **RECEIVER** role |
 | 6. Press **A0** to confirm | 6. Press **A0** to confirm |
 | 7. Select **OK** | 7. Select **OK** |
 | 8. Press **A0** to confirm | 8. Press **A0** to confirm |
