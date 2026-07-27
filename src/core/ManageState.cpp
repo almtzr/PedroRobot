@@ -17,8 +17,8 @@ ManageState::ManageState() {
     m_ignoreButtons = false;
     m_radioSet.code = 1;
     m_radioSet.role = TransmissionType::TX;
-    m_bluetoothSet.code = 1;
-    m_bluetoothSet.role = TransmissionType::NE;
+    m_uartSet.code = 1;
+    m_uartSet.role = TransmissionType::NE;
     m_roleUART = NE;
     m_messageEncode.currentLed = 0;
     m_messageEncode.rotation = 0;
@@ -105,7 +105,7 @@ void ManageState::screenControl(ManageDisplay* display, ManageMove* move, ModeRa
         case ModeType::USBSERIAL: 
             modeUSB(move); 
             if (m_roleUART == TX) {
-                uart->startBluetooth(m_bluetoothSet, m_roleUART);
+                uart->startBluetooth(m_uartSet, m_roleUART);
                 uart->setUARTMessage(m_messageEncode); 
             }
             break;
@@ -113,7 +113,7 @@ void ManageState::screenControl(ManageDisplay* display, ManageMove* move, ModeRa
         case ModeType::RADIO:     
             modeRadio(move, radio); 
             if (m_roleUART == TX) {
-                uart->startBluetooth(m_bluetoothSet, m_roleUART);
+                uart->startBluetooth(m_uartSet, m_roleUART);
                 if (m_radioSet.role == TX){ 
                     uart->setUARTMessage(m_messageEncode); 
                 } else if (m_radioSet.role == RX) {
@@ -170,15 +170,15 @@ void ManageState::screenATMode(ManageDisplay* display, ModeUART* bluetooth) {
 void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
     if (m_param == PARAM1) {
         if (m_button.btnRightPress) {
-            if (m_bluetoothSet.code < 100) {
-                m_bluetoothSet.code++;
+            if (m_uartSet.code < 100) {
+                m_uartSet.code++;
             }
         } else if (m_button.btnLeftPress) {
-            if (m_bluetoothSet.code > 1) {
-                m_bluetoothSet.code--;
+            if (m_uartSet.code > 1) {
+                m_uartSet.code--;
             }
         }
-        display->setRadioKey (m_bluetoothSet.code);       
+        display->setRadioKey (m_uartSet.code);       
         if (m_button.btnCenterClick) {
             m_param = PARAM3;
             display->setRadioSelected (m_param);  
@@ -204,8 +204,8 @@ void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
         if (m_button.btnCenterClick) {
             display->setModeSelected(m_currentMode);
             screenTransition(ScreenType::CONTROL, display);
-            m_bluetoothSet.role = RX;
-            bluetooth->startBluetooth(m_bluetoothSet, m_roleUART);
+            m_uartSet.role = RX;
+            bluetooth->startBluetooth(m_uartSet, m_roleUART);
         }
         if (m_button.btnLeftPress) {
             m_param = PARAMX;
@@ -244,7 +244,7 @@ void ManageState::screenUSB(ManageDisplay* display, ModeUART* uart) {
         if (m_button.btnCenterClick) {
             display->setModeSelected(m_currentMode);
             screenTransition(ScreenType::CONTROL, display);
-            uart->startBluetooth(m_bluetoothSet, m_roleUART);
+            uart->startBluetooth(m_uartSet, m_roleUART);
         }
         if (m_button.btnLeftPress) {
             m_param = PARAMX;
@@ -268,14 +268,14 @@ void ManageState::screenUSB(ManageDisplay* display, ModeUART* uart) {
 void ManageState::screenUART(ManageDisplay* display, ModeUART* uart) {
     if (m_param == PARAM1) {
         if (m_button.btnRightClick) {
-            if (m_bluetoothSet.role == TX){
-                m_bluetoothSet.role = RX;
-            } else if (m_bluetoothSet.role == RX) {
-                m_bluetoothSet.role = TX;
-            } else if (m_bluetoothSet.role == NE) {
-                m_bluetoothSet.role = TX;
+            if (m_uartSet.role == TX){
+                m_uartSet.role = RX;
+            } else if (m_uartSet.role == RX) {
+                m_uartSet.role = TX;
+            } else if (m_uartSet.role == NE) {
+                m_uartSet.role = TX;
             }
-            display->setTransmissionType(m_bluetoothSet.role);
+            display->setTransmissionType(m_uartSet.role);
         }
         if (m_button.btnCenterClick) {
             m_param = PARAMOK;
@@ -285,7 +285,7 @@ void ManageState::screenUART(ManageDisplay* display, ModeUART* uart) {
         if (m_button.btnCenterClick) {
             display->setModeSelected(m_currentMode);
             screenTransition(ScreenType::CONTROL, display);
-            uart->startBluetooth(m_bluetoothSet, m_roleUART);
+            uart->startBluetooth(m_uartSet, m_roleUART);
         }
         if (m_button.btnLeftPress) {
             m_param = PARAMX;
@@ -491,12 +491,12 @@ void ManageState::modeBluetooth(ManageMove* move, ModeUART* bluetooth) {
 }
 
 void ManageState::modeUART(ManageMove* move, ModeUART* uart) {  
-    if (m_bluetoothSet.role == TX){  
+    if (m_uartSet.role == TX){  
         m_messageEncode.rotation = 30;
         modeManual(move);        
         m_messageEncode.currentLed = m_servoSet.servoId;
         uart->setUARTMessage(m_messageEncode);
-    } else if (m_bluetoothSet.role == RX) {
+    } else if (m_uartSet.role == RX) {
         m_messageDecode = uart->getUARTMessage();
         decodeMessage(move,&m_messageDecode);
     }

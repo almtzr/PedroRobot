@@ -17,7 +17,7 @@ class ModeUART {
   private:
     EnableATmode m_enableATmode;
     bool m_bluetoothActive;
-    TransmissionSettings m_bluetoothSet;
+    TransmissionSettings m_uartSet;
     TransmissionType m_roleUART;
     PedroMessage m_messageDecode;
     PedroMessage m_messageEncode;

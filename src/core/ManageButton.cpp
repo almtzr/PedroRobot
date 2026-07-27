@@ -7,7 +7,7 @@ struct BtnState {
     unsigned long lastPressTime = 0;
 };
 
-BtnState btnCenter, btnRight, btnLeft, pinA3, pinA4, pinA5;
+BtnState btnCenter, btnRight, btnLeft;
 
 void ManageButton::init() {
     pinMode(BTN_LEFT, INPUT_PULLUP);

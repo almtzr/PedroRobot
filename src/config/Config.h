@@ -16,7 +16,6 @@ enum ScreenType : uint8_t {
     UART_SETTINGS,
     USB_SETTINGS,
     BLUETOOTH_SETTINGS,
-    BLUETOOTH_UPDATE,
     BLUETOOTH_ERROR
 };
 
@@ -48,7 +47,6 @@ enum SetParam : uint8_t {
     PARAM2,
     PARAM3,
     PARAM4,
-    PARAM5,
     PARAMOK,
     PARAMUPDATE,
     PARAMX
@@ -70,7 +68,6 @@ struct TransmissionSettings {
     uint8_t code;
 };
 
-// Pins
 #define RELEASE "v1.0.5" 
 #define TITLE_DLE "PEDRO ROBOT" 
 #define TITLE_MODE "SELECT MODE" 
@@ -88,9 +85,9 @@ struct TransmissionSettings {
 #define BTN_LEFT   A2
 
 #define LEVELWIDTH 17
-#define LEVELWIDTH_ 13
-#define SCREEN_SIZE_X 128
-#define SCREEN_SIZE_Y 64
+//#define LEVELWIDTH_ 13
+//#define SCREEN_SIZE_X 128
+//#define SCREEN_SIZE_Y 64
 #define TIME1 3000
 #define TIME2 10
 

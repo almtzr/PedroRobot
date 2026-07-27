@@ -2,6 +2,8 @@
 #include "ManageDisplay.h"
 
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_DEV_0|U8G_I2C_OPT_NO_ACK|U8G_I2C_OPT_FAST);
+constexpr uint8_t SCREEN_SIZE_X = 128;
+constexpr uint8_t SCREEN_SIZE_Y = 64;
 
 void ManageDisplay::init() {
     m_currentScreen = INTRO;
@@ -94,7 +96,6 @@ void ManageDisplay::screenControl() {
         if (m_roleUART == TX){
             u8g.setFont(u8g_font_8x13B);
             u8g.drawStr(SCREEN_SIZE_X/2 + 42, SCREEN_SIZE_Y/2.3, "TX");
-            //u8g.drawStr(SCREEN_SIZE_X/2 + 30, SCREEN_SIZE_Y/2, "RXTX");
         } else if (m_roleUART == RX){
             u8g.setFont(u8g_font_8x13B);
             u8g.drawStr(SCREEN_SIZE_X/2 + 42, SCREEN_SIZE_Y/2.3, "RX");

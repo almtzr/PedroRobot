@@ -31,7 +31,6 @@ class ManageState {
     void screenUSB(ManageDisplay* display, ModeUART* uart);
     void screenBluetooth(ManageDisplay* display, ModeUART* bluetooth);
     void screenATMode(ManageDisplay* display, ModeUART* bluetooth);
-   // void screenUpdateBluetooth(ManageDisplay* display, ModeUART* bluetooth);
     bool allButtonsReleased(ManageButton* btn);
     void screenTransition(ScreenType screenType, ManageDisplay* display);
     void modeManual(ManageMove* move);
@@ -51,7 +50,7 @@ class ManageState {
 
     bool m_ignoreButtons;
     TransmissionSettings m_radioSet;
-    TransmissionSettings m_bluetoothSet;
+    TransmissionSettings m_uartSet;
     TransmissionType m_roleUART;
     PedroMessage m_messageEncode;
     PedroMessage m_messageDecode;
