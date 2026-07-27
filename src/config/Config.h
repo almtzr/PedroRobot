@@ -71,7 +71,7 @@ struct TransmissionSettings {
 };
 
 // Pins
-#define RELEASE "v1.0.4" 
+#define RELEASE "v1.0.5" 
 #define TITLE_DLE "PEDRO ROBOT" 
 #define TITLE_MODE "SELECT MODE" 
 #define TITLE_RADIO "RADIO SETTINGS"
