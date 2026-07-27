@@ -14,8 +14,10 @@ enum ScreenType : uint8_t {
     SELECT_MODE,
     RADIO_SETTINGS,
     UART_SETTINGS,
+    USB_SETTINGS,
     BLUETOOTH_SETTINGS,
-    BLUETOOTH_UPDATE
+    BLUETOOTH_UPDATE,
+    BLUETOOTH_ERROR
 };
 
 enum ModeType : uint8_t {
@@ -31,7 +33,8 @@ enum ModeType : uint8_t {
 
 enum TransmissionType : uint8_t {
     TX,
-    RX
+    RX,
+    NE
 };
 
 enum EnableATmode : uint8_t {
@@ -45,12 +48,15 @@ enum SetParam : uint8_t {
     PARAM2,
     PARAM3,
     PARAM4,
-    PARAM5
+    PARAM5,
+    PARAMOK,
+    PARAMUPDATE,
+    PARAMX
 };
 
 struct PedroMessage {
-    byte currentLed;
-    byte rotation;
+    uint8_t currentLed;
+    uint8_t rotation;
 };
 
 struct ServoSettings {
@@ -60,8 +66,8 @@ struct ServoSettings {
 
 
 struct TransmissionSettings {
-    TransmissionType TxRxType;
-    uint8_t radioCode;
+    TransmissionType role;
+    uint8_t code;
 };
 
 // Pins
@@ -70,15 +76,16 @@ struct TransmissionSettings {
 #define TITLE_MODE "SELECT MODE" 
 #define TITLE_RADIO "RADIO SETTINGS"
 #define TITLE_UART "UART SETTINGS"
+#define TITLE_USB "USB SETTINGS"
 #define TITLE_BLUETOOTH "BLUETOOTH SETTINGS"
-#define TITLE_BLUETOOTH_UPDATE "BLUETOOTH UPDATE"
+#define TITLE_BLUETOOTH_ERROR "BLUETOOTH ERROR"
 
 #define TYPE_TX "TRANSMITTER" 
 #define TYPE_RX "RECEIVER" 
 
-#define BTN_LEFT   A2
 #define BTN_CENTER A0
 #define BTN_RIGHT  A1
+#define BTN_LEFT   A2
 
 #define LEVELWIDTH 17
 #define LEVELWIDTH_ 13

@@ -10,8 +10,8 @@ ManageMove* move;
 
 ModeRadio::ModeRadio() {
   m_radioActive = false;
-  m_radioSet.radioCode = 1;
-  m_radioSet.TxRxType = TransmissionType::TX;
+  m_radioSet.code = 1;
+  m_radioSet.role = TransmissionType::TX;
   m_messageEncode.currentLed = 0;
   m_messageEncode.rotation = 0;
   m_messageDecode.currentLed = 0;
@@ -40,12 +40,12 @@ PedroMessage ModeRadio::getRadioDecode() {
 }
 
 void ModeRadio::initRadio() {
-    address[4] = m_radioSet.radioCode;
-    if (m_radioSet.TxRxType == TX) {
+    address[4] = m_radioSet.code;
+    if (m_radioSet.role == TX) {
         radio.powerUp();
         radio.stopListening();
         radio.openWritingPipe(address);
-    } else if (m_radioSet.TxRxType == RX) {
+    } else if (m_radioSet.role == RX) {
         move->LEDOFF();
         radio.powerUp();
         radio.closeReadingPipe(1);
@@ -65,12 +65,12 @@ void ModeRadio::stopRadio() {
 
 void ModeRadio::update() {
     if (!m_radioActive) return;
-    if (m_radioSet.TxRxType == TX) {
+    if (m_radioSet.role == TX) {
         if (millis() - lastSend >= TIME2) {
             lastSend = millis();
             radio.write(&m_messageEncode, sizeof(m_messageEncode));
         }
-    } else if (m_radioSet.TxRxType == RX) {
+    } else if (m_radioSet.role == RX) {
         if (radio.available()) {
             radio.read(&m_messageDecode, sizeof(m_messageDecode));
         }

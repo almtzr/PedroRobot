@@ -9,7 +9,7 @@ class ModeUART {
     ModeUART();
     void update();
     EnableATmode enableATmode();
-    void startBluetooth(TransmissionSettings radioSet);
+    void startBluetooth(TransmissionSettings bluetoothSet, TransmissionType roleUART);
     void stopBluetooth();
     void setUARTMessage(PedroMessage uartMsg);
     PedroMessage getUARTMessage();
@@ -17,7 +17,8 @@ class ModeUART {
   private:
     EnableATmode m_enableATmode;
     bool m_bluetoothActive;
-    TransmissionSettings m_radioSet;
+    TransmissionSettings m_bluetoothSet;
+    TransmissionType m_roleUART;
     PedroMessage m_messageDecode;
     PedroMessage m_messageEncode;
 };

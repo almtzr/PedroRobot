@@ -19,7 +19,8 @@ class ManageDisplay {
     void oledUSB();
     void oledUART();
     void oledBluetooth();
-    void oledTransmissionType ();
+    void oledTransmissionRole();
+    void oledUARTRole();
     void oledRadioKey ();
     void oledUpdate ();
     void oledCancel ();
@@ -30,6 +31,7 @@ class ManageDisplay {
     void setRadioSelected(SetParam param);
     void setModeSelected(ModeType mode);
     void setTransmissionType(TransmissionType type);
+    void setRoleUART(TransmissionType type);
     void setRadioKey(uint8_t key);
     void setEnableATmode(EnableATmode ATmode);
     char* modeToString(ModeType mode);
@@ -40,6 +42,8 @@ class ManageDisplay {
     ModeType m_selectedMode;
     SetParam m_param;
     TransmissionSettings m_radioSet;
+    TransmissionType m_roleUART;
+
 };
 
 #endif

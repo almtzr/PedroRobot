@@ -7,7 +7,7 @@ struct BtnState {
     unsigned long lastPressTime = 0;
 };
 
-BtnState btnCenter, btnRight, btnLeft;
+BtnState btnCenter, btnRight, btnLeft, pinA3, pinA4, pinA5;
 
 void ManageButton::init() {
     pinMode(BTN_LEFT, INPUT_PULLUP);
@@ -41,6 +41,7 @@ void ManageButton::update() {
     updateButton(btnCenter, digitalRead(BTN_CENTER), now, true);
     updateButton(btnRight, digitalRead(BTN_RIGHT), now);
     updateButton(btnLeft,  digitalRead(BTN_LEFT), now);
+
 }
 
 // ======= Getters optimisés =======
