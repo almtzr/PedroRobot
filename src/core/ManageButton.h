@@ -20,23 +20,26 @@ class ManageButton {
     bool getBtnLeftON() const;
     bool getBtnLeftClick() const;
     bool getBtnLeftPress() const;
+  
+    bool getPinA3HIGH() const;
+    bool getPinA4HIGH() const;
+    bool getPinA5HIGH() const;
 
     void setBtnCenterON(bool state);
     void setBtnCenterClick(bool state);
     void setBtnCenterPress(bool state);
 
   private:
-    bool m_btnRightON;
-    bool m_btnRightClick;
-    bool m_btnRightPress;
-    bool m_btnLeftON;
-    bool m_btnLeftClick;
-    bool m_btnLeftPress;
-    bool m_btnCenterON;
-    bool m_btnCenterClick;
-    bool m_btnCenterPress;
-
-    unsigned long m_lastCenterPressTime;
+    // bool m_btnRightON;
+    // bool m_btnRightClick;
+    // bool m_btnRightPress;
+    // bool m_btnLeftON;
+    // bool m_btnLeftClick;
+    // bool m_btnLeftPress;
+    // bool m_btnCenterON;
+    // bool m_btnCenterClick;
+    // bool m_btnCenterPress;
+    //unsigned long m_lastCenterPressTime;
 };
 
 #endif

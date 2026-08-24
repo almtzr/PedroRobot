@@ -41,6 +41,7 @@ void ManageButton::update() {
     updateButton(btnCenter, digitalRead(BTN_CENTER), now, true);
     updateButton(btnRight, digitalRead(BTN_RIGHT), now);
     updateButton(btnLeft,  digitalRead(BTN_LEFT), now);
+
 }
 
 // ======= Getters optimisés =======

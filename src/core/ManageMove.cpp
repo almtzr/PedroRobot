@@ -5,7 +5,7 @@ Servo servoList[4];
 const uint8_t ledPins[4] = {13, 11, 8, 7};
 const uint8_t servoPins[4] = {5, 6, 9, 10}; 
 int16_t pulse;
-const int servoSpeed[4] = {-200, -220, 200, 150};
+const int servoSpeed[4] = {-200, -200, 200, 120};
 ////////////
 
 ManageMove::ManageMove() {

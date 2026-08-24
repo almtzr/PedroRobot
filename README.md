@@ -9,7 +9,7 @@ Each Pedro repository serves a specific role in the ecosystem:
 # 📂 `Pedro Robot`
 
 Source code and library to program and control the Pedro robot.
-Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radio**, and **USB Serial**.
+Available Control modes : **Manual**, **Record & Replay**, **Bluetooth**, **Radio**, **UART** and **USB Serial**.
 
 ## ⚙️ Installing and Uploading Pedro Firmware
 
@@ -41,6 +41,9 @@ Your Pedro robot is now ready to run with the latest firmware.
 <div align="left">
     <img src="img/3.png" width="45%">
     <img src="img/4.png" width="45%">
+</div>
+<div align="left">
+    <img src="img/5.png" width="45%">
 </div>
 
 ## 🎮 1. Manual Mode
@@ -75,34 +78,52 @@ Your Pedro robot is now ready to run with the latest firmware.
 
 ## 📶 3. Bluetooth Mode (HC-05)
 
-**What it does:** Control Pedro via smartphone or PC.
+**What it does:** Control Pedro via smartphone (validate on Android devices).
 
 **How to use:**
 
-1. Download the **Serial Bluetooth** app (iOS or Android).
-2. Create 7 control buttons with the following configuration:
-* Name: **Servo1** → Value: **1** → Mode: **Text** → Action: **Send**.
-* Name: **Servo2** → Value: **2** → Mode: **Text** → Action: **Send**.
-* Name: **Servo3** → Value: **3** → Mode: **Text** → Action: **Send**.
-* Name: **Servo4** → Value: **4** → Mode: **Text** → Action: **Send**.
-* Name: **FwD** (Forward) → Value: **5** → Mode: **Text** → Action: **Send**.
-* Name: **BwD** (Backward) → Value: **6** → Mode: **Text** → Action: **Send**.
-* Name: **Stop** → Value: **7** → Mode: **Text** → Action: **Send**.
-3. On Pedro, set the switch **AT → BT** to: **BT**.
-4. Pair your device with Pedro’s HC-05 module (default name: HC-05, PIN: 1234).
-5. Use the app buttons to send commands and control Pedro in real time.
-
-🛠️ **AT Mode Setup (Optional – change Pedro’s Bluetooth name):**
+**Configuring Pedro in Bluetooth Mode**
 
 1. Power **OFF** Pedro.
-2. Set switch **NRF → BT → WiFi** to: **BT**.
-3. Set switch **BT → AT** to: **AT**.
+2. Set Pedro’s switch **NRF → BT → WiFi** to: **BT**.
+3. Press and hold the **BT → AT** button.
 4. Power **ON** Pedro.
-5. Enter the **BLUETOOTH UPDATE** menu.
-6. Change Pedro’s Bluetooth name (e.g., from PEDROROBOT1 up to PEDROROBOT99).
-7. Pair your device with the new name (PEDROROBOTX).
-8. Use the app buttons to control Pedro as before.
+5. Release the **BT → AT** button after 3 seconds.
+6. Enter the **Select Mode** menu by holding **A0** for 4 seconds).
+7. Select **BLUETOOTH Mode**
+8. Press **A0** to confirm.
+9. Select **OK**, then press **A0** to confirm.
+10. Pedro is now ready to communicate via Bluetooth.
+    
+**Smartphone Application Setup:**
 
+1. Install the App: Download and install the **Serial Bluetooth** app on your smartphone.
+2. Create the Control Buttons.
+
+| Button | Value | Mode | Action | Newline |
+| ------ | ----- | ---- | ------ | ------ |
+| Servo1 | 1 | Text | Send | CR |
+| Servo2 | 1 | Text | Send | CR |
+| Servo3 | 1 | Text | Send | CR |
+| Servo4 | 1 | Text | Send | CR |
+| FwD (Forward) | 5 | Text | Send | CR |
+| BwD (Backward) | 6 | Text | Send | CR |
+| Stop | 7 | Text | Send | CR |
+
+4. Pair your smartphone with Pedro’s HC-05 module (default name: HC-05, PIN: 1234).
+5. Use the app buttons to send commands and control Pedro in real time.
+
+✅ Once paired, use the buttons in the application to control Pedro in real time.
+
+**Optional: Change the Bluetooth Name**
+
+You can personalize Pedro's Bluetooth name.
+
+1. Enter the **Bluetooth Update** menu.
+2. Enter the new Bluetooth name (for example: **PEDROROBOTX**).
+3. Save the new settings.
+4. Pair your smartphone using the new Bluetooth device name.
+  
 🎓 **STEM Insight:** : Students learn about wireless serial communication and how to configure Bluetooth modules for embedded systems.
 
 ## 📡 4. Radio Mode (NRF24L01)
@@ -143,6 +164,38 @@ Your Pedro robot is now ready to run with the latest firmware.
 6. Send commands & test servo response.
 
 🎓 **STEM Insight:** Embedded programming and PC-robot communication.
+
+## 🌐 6. UART Mode
+**What it does:** UART Mode allows two Pedro robots to communicate through a wired serial connection using the RX and TX pins.
+
+**How to use: Wiring the Pedro Robots**
+
+Connect the pins of the Pedro Robots transmitter and receiver as following:
+- Transmitter → Receiver
+- TX → RX
+- GND → GND
+- VCC → VCC (option)
+  
+> **Important**: Always connect TX → RX (never TX → TX).
+
+**Configuring the Pedro Transmitter and Receiver**
+
+|  Transmitter | Receiver |
+| ------------- | ------------- |
+| 1. Power ON Pedro | 1. Power ON Pedro |
+| 2. Enter the **Select Mode** menu | 2. Enter the **Select Mode** menu |
+| 3. Select **UART Mode** | 3. Select **UART Mode** |
+| 4. Press **A0** to confirm | 5. Press **A0** to confirm |
+| 5. Press **A1** to select the **TRANSMITTER** role | 5. Press **A1** to select the **RECEIVER** role |
+| 6. Press **A0** to confirm | 6. Press **A0** to confirm |
+| 7. Select **OK** | 7. Select **OK** |
+| 8. Press **A0** to confirm | 8. Press **A0** to confirm |
+
+**Ready to Communicate**
+
+✅ Once both robots are configured, use the A0, A1, and A2 buttons on the Pedro Transmitter to remotely control the Pedro Receiver through the UART (RX/TX) connection.
+
+💡 Note: UART communication requires a wired connection between the two Pedro robots. Unlike Radio or Bluetooth modes, data is transmitted through the RX and TX pins rather than wirelessly.
 
 ---
 

@@ -11,16 +11,18 @@ void ModeUART::stopBluetooth() {
     m_bluetoothActive = false;
 }
 
-void ModeUART::startBluetooth(TransmissionSettings radioSet) {
-    m_radioSet = radioSet;
+void ModeUART::startBluetooth(TransmissionSettings bluetoothSet, TransmissionType roleUART) {
+    m_uartSet = bluetoothSet;
+    m_roleUART = roleUART;
     m_bluetoothActive = true;
 
     if (m_enableATmode == OK) {
         //Serial.println("AT NAME DONE");
-        sprintf(buffer, "AT+NAME=PEDROROBOT%d", m_radioSet.radioCode);
+        sprintf(buffer, "AT+NAME=PEDROROBOT%d", m_uartSet.code);
         Serial1.println(buffer);
         delay(500);
     }
+    
 }
 
 EnableATmode ModeUART::enableATmode() {
@@ -65,7 +67,7 @@ PedroMessage ModeUART::getUARTMessage() {
 void ModeUART::update() {
     if (!m_bluetoothActive) return;
 
-    if (m_radioSet.TxRxType == TX) {
+    if (m_uartSet.role == TX or m_roleUART == TX) {
         // Envoi du numéro de LED (1 à 4)
         Serial1.write('1' + m_messageEncode.currentLed);
         Serial1.write('\n');
@@ -86,7 +88,9 @@ void ModeUART::update() {
         }
 
         Serial1.write('\n');    
-    } else if (m_radioSet.TxRxType == RX) {
+    } 
+    
+    if (m_uartSet.role == RX or m_roleUART == RX) {
         if (Serial1.available()) {
             char cmd = Serial1.read();
 
