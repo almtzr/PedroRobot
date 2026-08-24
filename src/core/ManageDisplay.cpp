@@ -320,7 +320,7 @@ void ManageDisplay::screenSelectMode() {
     } while( u8g.nextPage() );
 }
 
-void ManageDisplay::setRadioSelected(SetParam param) { m_param = param; }
+void ManageDisplay::setParamSelected(SetParam param) { m_param = param; }
 
 void ManageDisplay::setEnableATmode(EnableATmode ATmode) { m_enableATmode = ATmode; }
 

@@ -28,7 +28,7 @@ class ManageDisplay {
     void oledButtonOK ();
     void setDisplayScreen(ScreenType screen);
     void menuPosition(ModeType modeSelected, uint8_t positionX, uint8_t positionY, uint8_t bloc);
-    void setRadioSelected(SetParam param);
+    void setParamSelected(SetParam param);
     void setModeSelected(ModeType mode);
     void setTransmissionType(TransmissionType type);
     void setRoleUART(TransmissionType type);

@@ -18,7 +18,7 @@ ManageState::ManageState() {
     m_radioSet.code = 1;
     m_radioSet.role = TransmissionType::TX;
     m_uartSet.code = 1;
-    m_uartSet.role = TransmissionType::NE;
+    m_uartSet.role = TransmissionType::TX;
     m_roleUART = NE;
     m_messageEncode.currentLed = 0;
     m_messageEncode.rotation = 0;
@@ -76,7 +76,7 @@ void ManageState::screenTransition(ScreenType screenType, ManageDisplay* display
     m_param = PARAM1;
     if (m_currentScreen == BLUETOOTH_ERROR) {m_param = PARAMOK; /*display->setEnableATmode(NA);*/}
     if (m_currentScreen == USB_SETTINGS) {m_param = PARAM3;}
-    display->setRadioSelected (m_param);
+    display->setParamSelected (m_param);
     display->setDisplayScreen(m_currentScreen);
 }
 
@@ -181,7 +181,7 @@ void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
         display->setRadioKey (m_uartSet.code);       
         if (m_button.btnCenterClick) {
             m_param = PARAM3;
-            display->setRadioSelected (m_param);  
+            display->setParamSelected (m_param);  
         }
     }  else if (m_param == PARAM3) {
         if (m_button.btnRightClick) {
@@ -194,11 +194,11 @@ void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
         }
         if (m_button.btnLeftPress) {
             m_param = PARAM1;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
         if (m_button.btnCenterClick) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMOK) {
         if (m_button.btnCenterClick) {
@@ -209,11 +209,11 @@ void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
         }
         if (m_button.btnLeftPress) {
             m_param = PARAMX;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
         if (m_button.btnRightPress) {
             m_param = PARAM3;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMX) {
         if (m_button.btnCenterClick) {
@@ -221,7 +221,7 @@ void ManageState::screenBluetooth(ManageDisplay* display, ModeUART* bluetooth) {
         }
         if (m_button.btnRightPress ) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     }
 }
@@ -238,7 +238,7 @@ void ManageState::screenUSB(ManageDisplay* display, ModeUART* uart) {
         }
         if (m_button.btnCenterClick) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMOK) {
         if (m_button.btnCenterClick) {
@@ -248,11 +248,11 @@ void ManageState::screenUSB(ManageDisplay* display, ModeUART* uart) {
         }
         if (m_button.btnLeftPress) {
             m_param = PARAMX;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
         if (m_button.btnRightPress) {
             m_param = PARAM3;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMX) {
         if (m_button.btnCenterClick) {
@@ -260,7 +260,7 @@ void ManageState::screenUSB(ManageDisplay* display, ModeUART* uart) {
         }
         if (m_button.btnRightPress ) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     }
 }
@@ -279,7 +279,7 @@ void ManageState::screenUART(ManageDisplay* display, ModeUART* uart) {
         }
         if (m_button.btnCenterClick) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMOK) {
         if (m_button.btnCenterClick) {
@@ -289,11 +289,11 @@ void ManageState::screenUART(ManageDisplay* display, ModeUART* uart) {
         }
         if (m_button.btnLeftPress) {
             m_param = PARAMX;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
         if (m_button.btnRightPress) {
             m_param = PARAM1;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMX) {
         if (m_button.btnCenterClick) {
@@ -301,7 +301,7 @@ void ManageState::screenUART(ManageDisplay* display, ModeUART* uart) {
         }
         if (m_button.btnRightPress ) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     }
 }
@@ -318,7 +318,7 @@ void ManageState::screenRadio(ManageDisplay* display, ModeRadio* radio) {
         }
         if (m_button.btnCenterClick) {
             m_param = PARAM2;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAM2) {
         if (m_button.btnRightPress) {
@@ -333,12 +333,12 @@ void ManageState::screenRadio(ManageDisplay* display, ModeRadio* radio) {
 
         if (m_button.btnLeftPress) {
             m_param = PARAM1;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
           
         if (m_button.btnCenterClick) {
             m_param = PARAM3;
-            display->setRadioSelected (m_param);  
+            display->setParamSelected (m_param);  
         }
     } else if (m_param == PARAM3) {
         if (m_button.btnRightClick) {
@@ -351,11 +351,11 @@ void ManageState::screenRadio(ManageDisplay* display, ModeRadio* radio) {
         }
         if (m_button.btnLeftPress) {
             m_param = PARAM2;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
         if (m_button.btnCenterClick) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMOK) {
         if (m_button.btnCenterClick) {
@@ -365,11 +365,11 @@ void ManageState::screenRadio(ManageDisplay* display, ModeRadio* radio) {
         }
         if (m_button.btnLeftPress) {
             m_param = PARAMX;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
         if (m_button.btnRightPress) {
             m_param = PARAM3;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     } else if (m_param == PARAMX) {
         if (m_button.btnCenterClick) {
@@ -377,7 +377,7 @@ void ManageState::screenRadio(ManageDisplay* display, ModeRadio* radio) {
         }
         if (m_button.btnRightPress ) {
             m_param = PARAMOK;
-            display->setRadioSelected (m_param);
+            display->setParamSelected (m_param);
         }
     }
 }
@@ -492,6 +492,7 @@ void ManageState::modeBluetooth(ManageMove* move, ModeUART* bluetooth) {
 
 void ManageState::modeUART(ManageMove* move, ModeUART* uart) {  
     if (m_uartSet.role == TX){  
+       // Serial.println("blablablaabl");
         m_messageEncode.rotation = 30;
         modeManual(move);        
         m_messageEncode.currentLed = m_servoSet.servoId;
