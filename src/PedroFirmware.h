@@ -1,5 +1,5 @@
-#ifndef PEDRO_ROBOT_H
-#define PEDRO_ROBOT_H
+#ifndef PEDRO_FIRMWARE_H
+#define PEDRO_FIRMWARE_H
 
 // Core
 #include "core/ManageState.h"
